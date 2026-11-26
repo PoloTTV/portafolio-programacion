@@ -1,0 +1,1505 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Portafolio de Programación</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#F6F4EC;
+    --surface:#FCFBF6;
+    --panel:#E8EBDD;
+    --panel-hover:#DFE3D2;
+    --ink:#26312B;
+    --heading:#1C3A30;
+    --muted:#5D685F;
+    --faint:#8A938A;
+    --line:#D9DCCF;
+    --accent:#2F5D4A;
+    --accent-ink:#FFFFFF;
+    --code-bg:#182420;
+    --code-ink:#DCE8DC;
+    --term-bg:#0E1511;
+    --term-line:#2A3A31;
+    --term-green:#9BD1A8;
+    --term-ink:#E2EDE3;
+    --warn-bg:#F3EDD8;
+    --warn-line:#D9C98F;
+    --warn-ink:#5C4E1E;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#121613;
+      --surface:#1A211C;
+      --panel:#212B23;
+      --panel-hover:#28352B;
+      --ink:#E3E7DC;
+      --heading:#D8E8D8;
+      --muted:#9FAA9E;
+      --faint:#77857A;
+      --line:#2E3A31;
+      --accent:#8FC1A6;
+      --accent-ink:#10231A;
+      --code-bg:#0B100D;
+      --code-ink:#CFE0CF;
+      --term-bg:#080C0A;
+      --term-line:#243128;
+      --warn-bg:#2E2A18;
+      --warn-line:#5C5326;
+      --warn-ink:#E3D492;
+      color-scheme: dark;
+    }
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size:16px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  button, [role="button"], select, summary, input:not([type="checkbox"],[type="radio"]){ min-height:2.25rem; }
+  .wrap{ max-width:880px; margin:0 auto; padding:0 20px 72px; }
+
+  /* ---------- Portada ---------- */
+  .cover{ padding:52px 0 8px; }
+  .kicker{
+    font-size:11px; letter-spacing:.18em; font-weight:600; color:var(--muted);
+    text-transform:uppercase; margin:0 0 14px;
+  }
+  h1{
+    font-family:"Newsreader", Georgia, serif; font-weight:500; color:var(--heading);
+    font-size:clamp(38px, 7vw, 56px); line-height:1.08; margin:0 0 14px; letter-spacing:-.01em;
+  }
+  .cover .lede{ font-size:17px; color:var(--muted); max-width:56ch; margin:0 0 28px; }
+  .meta{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+    gap:1px; background:var(--line); border:1px solid var(--line); margin:0 0 10px;
+  }
+  .meta div{ background:var(--surface); padding:14px 16px; }
+  .meta dt{ font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); font-weight:600; margin:0 0 4px; }
+  .meta dd{ margin:0; font-size:14.5px; font-weight:500; color:var(--ink); }
+  .meta dd small{ display:block; font-weight:400; color:var(--muted); font-size:13px; }
+  .stats{
+    display:flex; flex-wrap:wrap; gap:8px 28px; padding:16px 2px 4px;
+    font-size:14px; color:var(--muted);
+  }
+  .stats strong{ color:var(--heading); font-family:"Newsreader", Georgia, serif; font-size:22px; font-weight:600; margin-right:6px; }
+
+  /* ---------- Mini guía de navegación ---------- */
+  .guide{ margin-top:36px; }
+  .guide h2{
+    font-family:"Newsreader", Georgia, serif; font-weight:500; color:var(--heading);
+    font-size:clamp(22px, 3.5vw, 28px); margin:0;
+  }
+  .guide .panel{ padding:16px 20px 8px; margin-top:12px; }
+  .guide ul{ margin:4px 0 8px; padding-left:20px; font-size:14.5px; }
+  .guide li{ margin:7px 0; }
+  .guide li strong{ color:var(--heading); }
+
+  /* ---------- Buscador ---------- */
+  .searchbar{ margin:34px 0 6px; }
+  .searchbar label{ display:block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; font-weight:600; color:var(--faint); margin-bottom:8px; }
+  .searchbar input{
+    width:100%; padding:10px 14px; font-size:15px; font-family:inherit;
+    background:var(--surface); color:var(--ink);
+    border:1px solid var(--line); border-radius:4px;
+  }
+  .searchbar input:focus{ outline:2px solid var(--accent); outline-offset:1px; }
+  .noresults{ display:none; padding:18px; color:var(--muted); font-size:14.5px; }
+  .searchcount{ display:none; padding:10px 18px 0; color:var(--muted); font-size:14px; }
+
+  /* ---------- Índice / temas ---------- */
+  .index-head{ margin:44px 0 8px; }
+  .index-head h2{
+    font-family:"Newsreader", Georgia, serif; font-weight:500; color:var(--heading);
+    font-size:clamp(26px, 4.5vw, 34px); margin:0;
+  }
+  .theme{ margin-top:52px; }
+  .theme-head{ display:flex; gap:18px; align-items:baseline; }
+  .theme-num{ font-size:12px; font-weight:600; color:var(--faint); letter-spacing:.08em; padding-top:10px; min-width:20px; }
+  .theme-head h3{
+    font-family:"Newsreader", Georgia, serif; font-weight:500; color:var(--heading);
+    font-size:clamp(24px, 4vw, 32px); line-height:1.15; margin:0 0 6px;
+  }
+  .theme-head p{ margin:0; color:var(--muted); font-size:15px; max-width:60ch; }
+  .theme-count{ margin-left:auto; font-size:12.5px; color:var(--faint); white-space:nowrap; padding-top:12px; }
+  .panel{ background:var(--panel); margin-top:18px; padding:10px 0 6px; }
+  .panel-label{
+    font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; font-weight:600;
+    color:var(--muted); padding:6px 20px 8px;
+  }
+  .row{
+    display:flex; align-items:center; gap:14px; width:100%; text-align:left;
+    background:transparent; border:0; border-top:1px solid var(--bg);
+    padding:11px 20px; cursor:pointer; font-family:inherit; color:var(--ink);
+    min-height:44px;
+  }
+  .row:first-of-type{ border-top:0; }
+  .row:hover{ background:var(--panel-hover); }
+  .row:focus-visible{ outline:2px solid var(--accent); outline-offset:-2px; }
+  .row .rnum{ font-size:12.5px; color:var(--muted); min-width:34px; font-variant-numeric:tabular-nums; }
+  .row .rtitle{ font-size:15px; font-weight:500; flex:1; }
+  .row .rtag{ font-size:11.5px; color:var(--faint); white-space:nowrap; }
+  .row .chev{ color:var(--muted); flex:none; transition:transform .15s ease; }
+  .row:hover .chev{ transform:translateX(2px); }
+  @media (max-width:560px){ .row .rtag{ display:none; } .theme-count{ display:none; } }
+
+  /* ---------- Subtemas y actividades desplegables ---------- */
+  .subtema{ margin-top:30px; }
+  .subtema-head{ display:flex; gap:12px; align-items:baseline; }
+  .subtema-num{ font-size:11.5px; font-weight:600; color:var(--faint); letter-spacing:.08em; min-width:26px; }
+  .subtema-head h4{
+    font-family:"Newsreader", Georgia, serif; font-weight:500; color:var(--heading);
+    font-size:20px; line-height:1.2; margin:0;
+  }
+  .subtema-count{ margin-left:auto; font-size:12.5px; color:var(--faint); white-space:nowrap; }
+  .subtema .panel{ margin-top:10px; }
+  .subtema .doc-slot{ padding:2px 20px 12px; }
+  .reportes-box{ border-top:1px solid var(--bg); }
+  .reportes-summary{
+    display:flex; align-items:center; gap:12px; width:100%; text-align:left;
+    list-style:none; cursor:pointer; padding:12px 20px; min-height:48px;
+    color:var(--ink); font-size:15px;
+  }
+  .reportes-summary::-webkit-details-marker{ display:none; }
+  .reportes-summary:hover{ background:var(--panel-hover); }
+  .reportes-summary:focus-visible{ outline:2px solid var(--accent); outline-offset:-2px; }
+  .reportes-label{
+    font-size:11px; letter-spacing:.14em; text-transform:uppercase; font-weight:700;
+    color:var(--accent-ink); background:var(--accent); border-radius:999px;
+    padding:4px 11px; white-space:nowrap;
+  }
+  .reportes-title{ font-weight:600; flex:1; }
+  .reportes-count{ font-size:12.5px; color:var(--faint); white-space:nowrap; }
+  .reportes-summary .chev{ color:var(--muted); flex:none; transition:transform .15s ease; }
+  .reportes-box[open ] > .reportes-summary .chev{ transform:rotate(90deg); }
+  .reportes-body{ border-top:1px dashed var(--line); }
+  @media (max-width:560px){ .reportes-count{ display:none; } .reportes-title{ font-size:14px; } }
+  .act{ border-top:1px solid var(--bg); }
+  .act > summary.row{ list-style:none; }
+  .act > summary.row::-webkit-details-marker{ display:none; }
+  .act[open ] > summary.row .chev{ transform:rotate(90deg); }
+  .act-body{ padding:14px 20px 18px; }
+  .act-body .card:last-child{ margin-bottom:4px; }
+  @media (max-width:560px){ .subtema-count{ display:none; } }
+
+  footer{ margin-top:64px; border-top:1px solid var(--line); padding-top:20px; color:var(--muted); font-size:13.5px; }
+  footer p{ margin:4px 0; }
+
+  /* ---------- Vista detalle ---------- */
+  #view-detail{ display:none; padding-top:28px; }
+  .backbtn{
+    display:inline-flex; align-items:center; gap:8px; background:transparent; border:0;
+    color:var(--accent); font-family:inherit; font-size:14.5px; font-weight:600;
+    cursor:pointer; padding:8px 4px; min-height:40px;
+  }
+  .backbtn:hover{ text-decoration:underline; }
+  .crumb{ font-size:13px; color:var(--faint); margin:6px 0 4px; }
+  .detail h2{
+    font-family:"Newsreader", Georgia, serif; font-weight:500; color:var(--heading);
+    font-size:clamp(28px, 5vw, 38px); line-height:1.15; margin:4px 0 6px;
+  }
+  .detail .tema-line{ color:var(--accent); font-weight:600; font-size:14.5px; margin:0 0 22px; }
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:6px;
+    padding:20px 22px; margin-bottom:16px;
+  }
+  .card h4{
+    font-size:11.5px; letter-spacing:.15em; text-transform:uppercase; font-weight:700;
+    color:var(--accent); margin:0 0 10px;
+  }
+  .card p{ margin:6px 0; font-size:15px; }
+  .card h5{
+    font-family:"Newsreader", Georgia, serif; font-weight:600; color:var(--heading);
+    font-size:17.5px; line-height:1.25; margin:20px 0 6px;
+  }
+  .card ul, .card ol{ margin:8px 0; padding-left:22px; font-size:15px; }
+  .card li{ margin:4px 0; }
+  .card table{ border-collapse:collapse; width:100%; margin:10px 0; font-size:14.5px; }
+  .card th, .card td{ text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  .card th{ font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:600; }
+  pre.code{
+    background:var(--code-bg); color:var(--code-ink); border-radius:6px;
+    padding:16px; overflow-x:auto; font-size:13.5px; line-height:1.55; margin:8px 0 12px;
+    font-family:ui-monospace, "SF Mono", Consolas, Menlo, monospace; white-space:pre;
+  }
+  .ghostbtn{
+    background:transparent; color:var(--accent); border:1px solid var(--accent);
+    border-radius:4px; padding:8px 14px; font-size:13.5px; font-weight:600; cursor:pointer;
+    font-family:inherit; min-height:38px;
+  }
+  .ghostbtn:hover{ background:var(--panel); }
+  .copied{ font-size:13px; color:var(--muted); margin-left:10px; }
+
+  /* ---------- Terminal ---------- */
+  .terminal{
+    background:var(--term-bg); border:1px solid var(--term-line); border-radius:6px;
+    padding:16px; font-family:ui-monospace, "SF Mono", Consolas, Menlo, monospace;
+  }
+  .term-head{ display:flex; gap:6px; margin-bottom:12px; }
+  .term-head span{ width:11px; height:11px; border-radius:50%; background:#33463A; display:block; }
+  .term-head span:first-child{ background:#5A3B3B; }
+  .term-head span:nth-child(2){ background:#5A5238; }
+  .term-head span:nth-child(3){ background:#3B5A44; }
+  .trow{ display:flex; gap:10px; align-items:center; margin:9px 0; flex-wrap:wrap; }
+  .trow label{ color:var(--term-green); font-size:14px; min-width:200px; flex:1 1 200px; }
+  .trow input{
+    background:#131C17; color:#fff; border:1px solid #3A4A40; border-radius:4px;
+    padding:8px 10px; font-size:15px; width:170px; max-width:100%; font-family:inherit;
+  }
+  .trow input:focus{ outline:2px solid var(--term-green); outline-offset:0; border-color:transparent; }
+  .runbtn{
+    background:var(--term-green); color:#0C1A10; border:0; border-radius:4px;
+    padding:10px 20px; font-weight:700; font-size:14.5px; cursor:pointer; font-family:inherit;
+    min-height:42px;
+  }
+  .runbtn:hover{ filter:brightness(1.08); }
+  .clearbtn{
+    background:transparent; color:var(--term-green); border:1px solid #3A4A40; border-radius:4px;
+    padding:9px 14px; font-size:13.5px; font-weight:600; cursor:pointer; font-family:inherit; min-height:42px;
+  }
+  .tout{
+    white-space:pre-wrap; word-break:break-word; color:var(--term-ink); margin-top:14px;
+    border-top:1px dashed var(--term-line); padding-top:12px; min-height:26px; font-size:14px; line-height:1.6;
+  }
+  .tout:empty::before{ content:"La salida del programa aparecerá aquí…"; color:#5F7265; }
+  .note{
+    background:var(--warn-bg); border:1px solid var(--warn-line); color:var(--warn-ink);
+    border-radius:6px; padding:12px 16px; font-size:14px; margin-bottom:16px;
+  }
+  .prevnext{ display:flex; justify-content:space-between; gap:12px; margin-top:26px; flex-wrap:wrap; }
+  .prevnext button{
+    background:var(--surface); border:1px solid var(--line); color:var(--ink); border-radius:4px;
+    padding:10px 16px; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer; min-height:44px;
+  }
+  .prevnext button:hover{ background:var(--panel); }
+  .prevnext button:disabled{ opacity:.4; cursor:default; }
+
+  /* ---------- Documentos adjuntos ---------- */
+  .doc-slot{ margin-top:18px; }
+  .doc-slot:first-of-type{ margin-top:2px; }
+  .doc-slot + .doc-slot{ border-top:1px dashed var(--line); padding-top:16px; }
+  .doc-slot h5{
+    font-size:13px; font-weight:700; color:var(--heading); margin:0 0 8px;
+    letter-spacing:.02em;
+  }
+  .doc-empty{ color:var(--muted); font-size:14px; margin:4px 0 10px; }
+  .doc-file{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    padding:10px 0; border-top:1px solid var(--line);
+  }
+  .doc-file:first-of-type{ border-top:0; }
+  .doc-name{ font-size:14.5px; font-weight:500; flex:1 1 180px; word-break:break-word; }
+  a.doc-open{ text-decoration:none; display:inline-flex; align-items:center; }
+  .doc-viewer{ margin:6px 0 14px; }
+  .doc-viewer iframe{
+    width:100%; height:540px; border:1px solid var(--line); border-radius:4px; background:#fff;
+  }
+  .doc-viewer img{
+    max-width:100%; height:auto; border:1px solid var(--line); border-radius:4px; display:block;
+  }
+  .attach-row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:10px; }
+  label.attach-label{ display:inline-flex; align-items:center; cursor:pointer; }
+  .doc-hint{ font-size:13px; color:var(--muted); }
+
+  /* ---------- Índice de documentos ---------- */
+  .docs-sec{ margin-top:44px; }
+  .docs-lede{ color:var(--muted); font-size:15px; max-width:62ch; margin:10px 0 4px; }
+  .doc-group{ padding:0; }
+  .doc-group summary{
+    padding:14px 20px; font-weight:600; font-size:15px; cursor:pointer; color:var(--heading);
+  }
+  .doc-group .row{ border-top:1px solid var(--bg); }
+  .doc-chip{
+    font-size:11.5px; font-weight:600; color:var(--faint); border:1px solid var(--line);
+    border-radius:999px; padding:3px 10px; white-space:nowrap;
+  }
+  .doc-chip.ok{ color:var(--accent); border-color:var(--accent); }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .row .chev{ transition:none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ================= VISTA ÍNDICE ================= -->
+  <div id="view-index">
+    <header class="cover">
+      <p class="kicker">Portafolio electrónico · Proyecto final 2026B</p>
+      <h1>Portafolio de Programación</h1>
+      <p class="lede">Recorrido completo del curso: los conceptos de cada unidad y las 52 prácticas en lenguaje C, cada una con su pseudocódigo, su código y una terminal para correrla aquí mismo.</p>
+      <dl class="meta">
+        <div><dt>Equipo</dt><dd>Hugo Alejandro Leyton Pérez<small>Oscar Emmanuel Martinez Morales</small><small>Romina</small></dd></div>
+        <div><dt>Materia</dt><dd>Fundamentos de Programación · I5288<small>Profesora: Sánchez Rosario Patricia</small></dd></div>
+        <div><dt>Institución</dt><dd>CUCEI — Universidad de Guadalajara<small>Ingeniería en Mecatrónica Inteligente</small></dd></div>
+        <div><dt>Ciclo y entrega</dt><dd>2026-B<small>Domingo 29 de noviembre de 2026, 23:55</small></dd></div>
+      </dl>
+      <div class="stats">
+        <span><strong>7</strong>unidades</span>
+        <span><strong>52</strong>prácticas en C</span>
+        <span><strong>52</strong>reportes</span>
+        <span><strong>33 de 33</strong>diagramas de flujo</span>
+        <span><strong>11</strong>investigaciones</span>
+        <span><strong>52</strong>terminales interactivas</span>
+      </div>
+    </header>
+
+    <section class="guide">
+      <p class="kicker">Mini guía</p>
+      <h2>Cómo navegar este portafolio</h2>
+      <div class="panel">
+        <ul>
+          <li><strong>Temas y subtemas:</strong> el curso está organizado en 7 temas; cada tema se divide en subtemas y cada subtema agrupa sus actividades en orden.</li>
+          <li><strong>Reportes:</strong> el reporte general de cada subtema está bajo el encabezado <strong>Reportes</strong>, cerrado al entrar; tócalo para abrirlo y leer el documento sin salir de la página.</li>
+          <li><strong>Actividades desplegables:</strong> toca cualquier actividad para ver su objetivo, pseudocódigo, diagrama de flujo, código en C y una terminal interactiva para correrla aquí mismo.</li>
+          <li><strong>Buscador:</strong> escribe el número o el nombre de una práctica (por ejemplo, «factorial» o «práctica 20») para encontrarla al instante.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="searchbar">
+      <label for="q">Buscar una práctica o tema</label>
+      <input id="q" type="search" placeholder="Ej. factorial, arreglos, selectiva, práctica 20…" autocomplete="off" />
+    </div>
+    <p class="searchcount" id="searchcount" aria-live="polite"></p>
+    <p class="noresults" id="noresults">Nada coincide con esa búsqueda. Prueba con el número de práctica o el nombre del tema.</p>
+
+    <div id="docs-index" class="docs-sec"></div>
+
+    <div class="index-head">
+      <p class="kicker">Índice del curso</p>
+      <h2>Siete temas, un recorrido.</h2>
+    </div>
+
+    <div id="themes"></div>
+
+    <footer>
+      <p>Portafolio electrónico del curso de Programación (I5288), CUCEI, Universidad de Guadalajara — Ciclo 2026-B.</p>
+      <p>Cada práctica incluye objetivo, pseudocódigo, código en C y terminal interactiva con la misma lógica del programa, además de su reporte y su diagrama de flujo cuando están adjuntos, visibles sin salir de la página.</p>
+    </footer>
+  </div>
+
+</div>
+<script>
+/* ============================================================
+   DATOS DEL PORTAFOLIO
+   Temas conceptuales: contenido de las investigaciones del curso.
+   Prácticas: objetivo, pseudocódigo, código en C y la lógica de
+   su terminal (la terminal ejecuta la misma lógica del código).
+   ============================================================ */
+
+var THEMES = [
+  { n:1, titulo:"Introducción y conceptos básicos",
+    desc:"El punto de partida para comprender la programación y el planteamiento de soluciones.",
+    label:"Subtemas vistos en clase" },
+  { n:2, titulo:"Fundamentos de programación",
+    desc:"Operadores, tipos de datos y variables: la base del lenguaje C.",
+    label:"Subtemas vistos en clase" },
+  { n:3, titulo:"Estructura de control: secuenciación",
+    desc:"La ejecución ordenada de las instrucciones de un programa, una tras otra.",
+    label:"Prácticas del tema" },
+  { n:4, titulo:"Estructura de control: selectiva",
+    desc:"Decisiones en el programa: simple, doble, múltiple y anidada.",
+    label:"Prácticas del tema" },
+  { n:5, titulo:"Estructura de control: repetición",
+    desc:"Ciclos mientras, hacer-mientras y desde, solos y anidados.",
+    label:"Prácticas del tema" },
+  { n:6, titulo:"Arreglos unidimensionales",
+    desc:"Colecciones de datos del mismo tipo en una sola variable, y cadenas de caracteres.",
+    label:"Prácticas del tema" },
+  { n:7, titulo:"Funciones",
+    desc:"Programas divididos en funciones: sin retorno, con retorno y con prototipos.",
+    label:"Prácticas del tema" }
+];
+
+/* ---------- Temas conceptuales (investigaciones) ---------- */
+var CONCEPTOS = [
+  { id:"c11", tema:1, num:"1.1", titulo:"Computadora y lenguajes de una computadora", tag:"Investigación · Mapa conceptual",
+    objetivo:"Comprender qué es una computadora, cómo procesa la información y en qué niveles se le puede dar instrucciones.",
+    body:'<p>Una <strong>computadora</strong> es una máquina electrónica que procesa datos de entrada, los transforma siguiendo instrucciones y entrega resultados. Todo lo que guarda y procesa lo representa en <strong>sistema binario</strong>: combinaciones de 0 y 1 (bits), porque sus circuitos solo distinguen dos estados.</p>'
+      +'<p>Para comunicarse con ella existen niveles de lenguaje:</p>'
+      +'<table><tr><th>Nivel</th><th>Cómo es</th><th>Ejemplo</th></tr>'
+      +'<tr><td>Lenguaje máquina</td><td>Código binario que el procesador entiende directamente. Es el único que la computadora ejecuta sin traducir.</td><td>10110000 01100001</td></tr>'
+      +'<tr><td>Lenguaje ensamblador</td><td>Mnemotécnicos cortos que representan instrucciones de máquina; se traduce con un ensamblador.</td><td>MOV AL, 61h</td></tr>'
+      +'<tr><td>Lenguaje de alto nivel</td><td>Se parece al lenguaje humano y a las matemáticas; un compilador o intérprete lo traduce a máquina.</td><td>C, Python, Java</td></tr></table>'
+      +'<p>En este curso se trabaja con un lenguaje de alto nivel, <strong>C</strong>, pero entender los niveles bajos explica por qué el compilador y los tipos de datos importan tanto.</p>' },
+  { id:"c12", tema:1, num:"1.2", titulo:"Algoritmo", tag:"Práctica conceptual",
+    objetivo:"Definir qué es un algoritmo y aplicarlo a problemas de la vida diaria antes de escribir código.",
+    body:'<p>Un <strong>algoritmo</strong> es una serie de pasos ordenados, precisos y finitos que resuelven un problema. Para que un conjunto de instrucciones sea un algoritmo debe cumplir:</p>'
+      +'<ul><li><strong>Precisión:</strong> cada paso indica exactamente qué hacer, sin ambigüedad.</li>'
+      +'<li><strong>Orden:</strong> los pasos se ejecutan en una secuencia definida.</li>'
+      +'<li><strong>Finitud:</strong> tiene un inicio y un fin; no puede ser infinito.</li>'
+      +'<li><strong>Definición:</strong> con los mismos datos de entrada, siempre produce el mismo resultado.</li></ul>'
+      +'<p>Ejemplo — cambiar una llanta ponchada:</p>'
+      +'<ol><li>Estacionar el auto en un lugar plano y seguro.</li><li>Sacar la llanta de refacción y la herramienta.</li><li>Aflojar las tuercas de la llanta ponchada.</li><li>Levantar el auto con el gato.</li><li>Quitar las tuercas y retirar la llanta.</li><li>Colocar la refacción y apretar las tuercas.</li><li>Bajar el auto y terminar de apretar.</li></ol>'
+      +'<p>Todo programa del portafolio nace primero como algoritmo: se escribe en <strong>pseudocódigo</strong>, se dibuja el <strong>diagrama de flujo</strong> y al final se traduce a código en C.</p>' },
+  { id:"c13", tema:1, num:"1.3", titulo:"Conversiones", tag:"Práctica · Sistemas numéricos", widget:"conversiones",
+    objetivo:"Convertir cantidades entre los sistemas binario, octal, decimal y hexadecimal, que son la base de cómo la computadora representa los datos.",
+    body:'<p>La computadora trabaja en <strong>binario</strong> (base 2), pero en programación también se usan el <strong>octal</strong> (base 8) y el <strong>hexadecimal</strong> (base 16) como formas cortas de escribir números binarios largos. El <strong>decimal</strong> (base 10) es el sistema de uso diario.</p>'
+      +'<table><tr><th>Decimal</th><th>Binario</th><th>Octal</th><th>Hexadecimal</th></tr>'
+      +'<tr><td>10</td><td>1010</td><td>12</td><td>A</td></tr>'
+      +'<tr><td>25</td><td>11001</td><td>31</td><td>19</td></tr>'
+      +'<tr><td>255</td><td>11111111</td><td>377</td><td>FF</td></tr></table>'
+      +'<p>Para pasar de decimal a otra base se divide entre la base y se guardan los residuos; para volver, se multiplica cada dígito por la base elevada a su posición. Pruébalo con el convertidor:</p>' },
+  { id:"c14", tema:1, num:"1.4", titulo:"Programación estructurada", tag:"Investigación",
+    objetivo:"Conocer el concepto, el origen y las características de la programación estructurada, el enfoque que sigue todo el curso.",
+    body:'<p>La <strong>programación estructurada</strong> es un paradigma que organiza el código usando solo tres estructuras de control: <strong>secuencia</strong>, <strong>selección</strong> y <strong>repetición</strong>. Surgió a finales de los años sesenta, con los trabajos de Böhm y Jacopini y la crítica de Dijkstra al uso indiscriminado del <em>goto</em>, que volvía los programas imposibles de seguir.</p>'
+      +'<p>Sus características principales:</p>'
+      +'<ul><li>El programa se lee de arriba hacia abajo, con un solo punto de entrada y uno de salida por estructura.</li>'
+      +'<li>Se divide el problema en partes más pequeñas (diseño descendente).</li>'
+      +'<li>El código es más fácil de leer, probar y corregir.</li>'
+      +'<li>Las tres estructuras bastan para expresar cualquier algoritmo.</li></ul>'
+      +'<p>Las unidades 3, 4 y 5 de este portafolio corresponden exactamente a esas tres estructuras: secuenciación, selectiva y repetición.</p>' },
+  { id:"c15", tema:1, num:"1.5", titulo:"Fases de la creación de un programa", tag:"Investigación",
+    objetivo:"Identificar las etapas por las que pasa un programa desde que se plantea el problema hasta que se mantiene en uso.",
+    body:'<p>Crear un programa no es solo escribir código: es un proceso con fases definidas.</p>'
+      +'<ol><li><strong>Definición del problema:</strong> qué se quiere resolver y qué se espera obtener.</li>'
+      +'<li><strong>Análisis:</strong> datos de entrada, proceso y datos de salida.</li>'
+      +'<li><strong>Diseño:</strong> el algoritmo en pseudocódigo y diagrama de flujo.</li>'
+      +'<li><strong>Codificación:</strong> traducir el diseño a un lenguaje de programación, en este curso C.</li>'
+      +'<li><strong>Pruebas y depuración:</strong> correr el programa, detectar errores y corregirlos (corrida de escritorio).</li>'
+      +'<li><strong>Documentación:</strong> dejar registro de cómo funciona, interna y externa.</li>'
+      +'<li><strong>Mantenimiento:</strong> corregir y mejorar el programa durante su vida útil.</li></ol>'
+      +'<p>Cada práctica de este portafolio recorre esas fases: el reporte trae el análisis y el diseño (pseudocódigo y diagrama), el código es la codificación y la terminal permite repetir las pruebas.</p>' },
+  { id:"c21", tema:2, num:"2.1", titulo:"Antecedentes y definición de lenguaje C", tag:"Investigación",
+    objetivo:"Conocer el origen del lenguaje C y por qué sigue siendo la base para aprender a programar.",
+    body:'<p>El lenguaje <strong>C</strong> nació en los laboratorios Bell a principios de los años setenta, creado por <strong>Dennis Ritchie</strong> para reescribir el sistema operativo UNIX. Su genealogía es una cadena de simplificaciones:</p>'
+      +'<table><tr><th>Lenguaje</th><th>Aporte</th></tr>'
+      +'<tr><td>CPL (1963)</td><td>Lenguaje combinado de Cambridge y Londres; poderoso pero difícil de implementar.</td></tr>'
+      +'<tr><td>BCPL (1967)</td><td>Versión simplificada de CPL, creada por Martin Richards.</td></tr>'
+      +'<tr><td>B (1970)</td><td>Ken Thompson lo reduce aún más para la PDP-7.</td></tr>'
+      +'<tr><td>C (1972)</td><td>Ritchie agrega tipos de datos y estructura; con él se reescribe UNIX.</td></tr>'
+      +'<tr><td>K&amp;R C (1978)</td><td>El libro de Kernighan y Ritchie define el lenguaje.</td></tr>'
+      +'<tr><td>ANSI C (1989)</td><td>Primer estándar oficial; después llegan C99, C11 y C17.</td></tr></table>'
+      +'<p>C es un lenguaje de nivel medio: cercano al hardware (memoria, punteros) pero con estructuras de alto nivel. Por eso se usa en sistemas operativos, sistemas embebidos y como base de C++, Java y C#.</p>' },
+  { id:"c22", tema:2, num:"2.2", titulo:"Tipos de datos en lenguaje C", tag:"Investigación",
+    objetivo:"Distinguir los tipos de datos básicos de C, su tamaño en memoria y el rango de valores que pueden guardar.",
+    body:'<p>Cada variable en C tiene un <strong>tipo</strong>, que define cuánta memoria ocupa y qué valores admite. Los tipos básicos son:</p>'
+      +'<table><tr><th>Tipo</th><th>Tamaño típico</th><th>Rango aproximado</th><th>Formato en printf</th></tr>'
+      +'<tr><td>char</td><td>1 byte</td><td>−128 a 127 (o un carácter)</td><td>%c</td></tr>'
+      +'<tr><td>int</td><td>4 bytes</td><td>−2,147,483,648 a 2,147,483,647</td><td>%d</td></tr>'
+      +'<tr><td>float</td><td>4 bytes</td><td>±3.4 × 10<sup>38</sup> (6-7 decimales útiles)</td><td>%f</td></tr>'
+      +'<tr><td>double</td><td>8 bytes</td><td>±1.7 × 10<sup>308</sup> (15 decimales útiles)</td><td>%lf</td></tr></table>'
+      +'<p>Elegir bien el tipo evita errores silenciosos: un <em>int</em> no guarda decimales, un <em>float</em> pierde precisión con números muy grandes y un <em>char</em> en realidad guarda el código numérico del carácter (su código ASCII).</p>' },
+  { id:"c23", tema:2, num:"2.3", titulo:"Bibliotecas en lenguaje C (librerías)", tag:"Investigación",
+    objetivo:"Entender qué es una biblioteca y conocer las funciones más usadas de stdio, math, stdlib y string.",
+    body:'<p>Una <strong>biblioteca</strong> es un conjunto de funciones ya escritas y probadas que el programador reutiliza incluyéndolas con <code>#include</code>. Las esenciales del curso:</p>'
+      +'<table><tr><th>Biblioteca</th><th>Para qué sirve</th><th>Funciones del curso</th></tr>'
+      +'<tr><td>stdio.h</td><td>Entrada y salida de datos</td><td>printf, scanf, fgets, puts</td></tr>'
+      +'<tr><td>math.h</td><td>Funciones matemáticas</td><td>sqrt (raíz), pow (potencia), log (logaritmo), cos (coseno)</td></tr>'
+      +'<tr><td>stdlib.h</td><td>Utilidades generales</td><td>system, rand, atoi, abs</td></tr>'
+      +'<tr><td>string.h</td><td>Manejo de cadenas</td><td>strlen (longitud), strcpy, strcmp</td></tr></table>'
+      +'<p>En las prácticas del portafolio, <em>stdio.h</em> aparece en todas; <em>math.h</em> entra en los menús matemáticos de funciones y <em>string.h</em> en las prácticas de cadenas de la unidad de arreglos.</p>' },
+  { id:"c24", tema:2, num:"2.4", titulo:"Expresiones", tag:"Práctica", widget:"expresiones",
+    objetivo:"Evaluar expresiones aritméticas respetando la jerarquía de operadores, con los valores a = 0, b = 5 y c = 12.",
+    body:'<p>Una <strong>expresión</strong> combina operandos con operadores. C la evalúa con una jerarquía fija: primero paréntesis, luego multiplicación, división y módulo, y al final suma y resta; entre operadores del mismo nivel se avanza de izquierda a derecha.</p>'
+      +'<p>Con <strong>a = 0, b = 5, c = 12</strong>, estas expresiones se evalúan así (la división entre enteros descarta los decimales):</p>' },
+  { id:"c41", tema:4, num:"4 · Infografía", titulo:"Infografía: estructura selectiva múltiple", tag:"Infografía",
+    objetivo:"Explicar de forma visual cómo funciona la estructura selectiva múltiple (switch) en C.",
+    body:'<p>La estructura <strong>selectiva múltiple</strong> permite escoger un camino entre muchos según el valor de una sola variable o expresión, sin encadenar decenas de <em>if</em>. En C se escribe con <code>switch</code>:</p>'
+      +'<pre class="code">switch (opcion) {\n  case 1: /* instrucciones */ break;\n  case 2: /* instrucciones */ break;\n  default: /* si ningún caso coincide */\n}</pre>'
+      +'<ul><li><strong>Variable o expresión:</strong> el valor que se compara; debe ser entero o carácter.</li>'
+      +'<li><strong>case:</strong> cada valor posible abre un bloque de instrucciones.</li>'
+      +'<li><strong>break:</strong> sale del switch al terminar un caso; sin él, la ejecución sigue al caso siguiente.</li>'
+      +'<li><strong>default:</strong> el camino cuando ningún caso coincide; es opcional pero recomendado.</li></ul>'
+      +'<h5>¿Cuándo se usa?</h5>'
+      +'<p>Se usa cuando la decisión depende del valor de <strong>una sola variable o expresión</strong> y ese valor solo puede ser uno de varios casos conocidos de antemano: la opción de un menú, un código de operación, el número de un mes o una letra. La variable debe ser de tipo entero (<code>int</code>) o carácter (<code>char</code>), porque cada <code>case</code> se compara contra una constante. Si las condiciones son rangos («entre 70 y 89») o combinan varias variables, lo correcto es encadenar <em>if–else</em>.</p>'
+      +'<h5>Ejemplo en C: menú de operaciones</h5>'
+      +'<p>El uso más común en el curso es el menú: el usuario elige un número y el <code>switch</code> ejecuta solo la operación pedida, como en las prácticas de menús de esta unidad.</p>'
+      +'<pre class="code">#include &lt;stdio.h&gt;\n\nint main() {\n    int op;\n    float a, b;\n    printf("Dame dos numeros: ");\n    scanf("%f %f", &amp;a, &amp;b);\n    printf("1) Suma  2) Resta  3) Multiplicacion  4) Division\\n");\n    printf("Elige una opcion: ");\n    scanf("%d", &amp;op);\n    switch (op) {\n        case 1: printf("Resultado: %.2f", a + b); break;\n        case 2: printf("Resultado: %.2f", a - b); break;\n        case 3: printf("Resultado: %.2f", a * b); break;\n        case 4: printf("Resultado: %.2f", a / b); break;\n        default: printf("Opcion invalida");\n    }\n    return 0;\n}</pre>'
+      +'<h5>¿Para qué sirve el break?</h5>'
+      +'<p>El <code>break</code> marca el final de cada caso: al ejecutarse, el programa sale del <code>switch</code> y continúa después de la llave de cierre. Si se olvida, ocurre la <strong>caída</strong> (<em>fall-through</em>): el programa sigue ejecutando los casos siguientes aunque ya no coincidan, y mezcla resultados de varias opciones. La única caída útil es la intencional, cuando varios <code>case</code> comparten el mismo bloque —como en la práctica 17, donde las cinco vocales llevan al mismo mensaje—.</p>'
+      +'<h5>Ventajas frente a muchos if–else</h5>'
+      +'<ul><li><strong>Se lee de un vistazo:</strong> los casos forman una lista ordenada de opciones, sin condiciones repetidas una y otra vez.</li>'
+      +'<li><strong>La variable se evalúa una sola vez;</strong> con <em>if–else</em> encadenados, cada condición se revisa por separado hasta encontrar la que se cumple.</li>'
+      +'<li><strong>Agregar o quitar una opción</strong> es tocar un solo <code>case</code>, sin reordenar las demás condiciones.</li>'
+      +'<li><strong>Hay menos margen de error:</strong> no existen condiciones contradictorias ni rangos traslapados que revisar.</li>'
+      +'<li><strong>El compilador puede optimizarlo</strong> con saltos directos al caso correcto, en lugar de evaluar todas las condiciones en cadena.</li></ul>'
+      +'<p>Las prácticas 13 a 19 de esta unidad usan esta estructura: menús de operaciones, de conversiones y de áreas.</p>' },
+  { id:"c51", tema:5, num:"5 · Investigación", titulo:"Contador, acumulador y bandera", tag:"Investigación",
+    objetivo:"Definir y distinguir tres variables especiales que aparecen en casi todos los ciclos del curso.",
+    body:'<table><tr><th>Variable</th><th>Qué hace</th><th>Ejemplo</th></tr>'
+      +'<tr><td><strong>Contador</strong></td><td>Cuenta cuántas veces ocurre algo; aumenta de uno en uno (o en pasos fijos).</td><td><code>contador = contador + 1;</code></td></tr>'
+      +'<tr><td><strong>Acumulador</strong></td><td>Suma valores variables a un total que va creciendo.</td><td><code>suma = suma + calificacion;</code></td></tr>'
+      +'<tr><td><strong>Bandera</strong></td><td>Variable que solo vale verdadero o falso y registra si algo ya ocurrió; suele controlar decisiones o la salida de un ciclo.</td><td><code>encontrado = 1;</code></td></tr></table>'
+      +'<p>Los tres se inicializan antes del ciclo: el contador y el acumulador en cero, y la bandera en falso. Olvidar la inicialización es uno de los errores más comunes en las prácticas de repetición.</p>' }
+];
+
+/* ---------- Prácticas 1–7 · Secuenciación ---------- */
+var PRACTICAS = [
+{ n:1, tema:3, titulo:"Evaluación de expresiones", estructura:"Secuenciación",
+  objetivo:"Escribir un programa secuencial que evalúe expresiones aritméticas con valores dados, respetando la jerarquía de operadores.",
+  pseudo:"Inicio\n  Definir a, b, c como entero\n  a ← 0, b ← 5, c ← 12\n  r1 ← b * c\n  r2 ← b + c - a\n  r3 ← c mod b\n  Escribir r1, r2, r3\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int a = 0, b = 5, c = 12;\n    printf("b * c = %d\\n", b * c);\n    printf("b + c - a = %d\\n", b + c - a);\n    printf("c %% b = %d\\n", c % b);\n    printf("(a + b) * (c - b) = %d\\n", (a + b) * (c - b));\n    return 0;\n}',
+  inputs:[], run:"p1", ejemplo:"b * c = 60\nb + c - a = 17\nc % b = 2\n(a + b) * (c - b) = 35",
+  aprendi:"Que C evalúa las expresiones por jerarquía: primero paréntesis, luego multiplicación y módulo, y al final sumas y restas." },
+{ n:2, tema:3, titulo:"Resta de dos números", estructura:"Secuenciación",
+  objetivo:"Leer dos números con scanf y mostrar su resta, en un flujo completamente secuencial.",
+  pseudo:"Inicio\n  Definir n1, n2, resta como real\n  Escribir \"Dame el primer número: \"\n  Leer n1\n  Escribir \"Dame el segundo número: \"\n  Leer n2\n  resta ← n1 - n2\n  Escribir \"La resta es: \", resta\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    float n1, n2, resta;\n    printf("Dame el primer numero: ");\n    scanf("%f", &n1);\n    printf("Dame el segundo numero: ");\n    scanf("%f", &n2);\n    resta = n1 - n2;\n    printf("La resta es: %.2f", resta);\n    return 0;\n}',
+  inputs:[{k:"a",label:"Dame el primer número:",ph:"ej. 20"},{k:"b",label:"Dame el segundo número:",ph:"ej. 8"}],
+  run:"resta", ejemplo:"Dame el primer número: 20\nDame el segundo número: 8\nLa resta es: 12.00",
+  aprendi:"A leer datos con scanf usando &variable y a guardar el resultado de una operación en otra variable antes de imprimirlo." },
+{ n:3, tema:3, titulo:"Promedio de 3 calificaciones", estructura:"Secuenciación",
+  objetivo:"Calcular el promedio de tres calificaciones capturadas por el usuario.",
+  pseudo:"Inicio\n  Definir c1, c2, c3, prom como real\n  Leer c1, c2, c3\n  prom ← (c1 + c2 + c3) / 3\n  Escribir \"El promedio es: \", prom\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    float c1, c2, c3, prom;\n    printf("Dame la calificacion 1: ");\n    scanf("%f", &c1);\n    printf("Dame la calificacion 2: ");\n    scanf("%f", &c2);\n    printf("Dame la calificacion 3: ");\n    scanf("%f", &c3);\n    prom = (c1 + c2 + c3) / 3;\n    printf("El promedio es: %.2f", prom);\n    return 0;\n}',
+  inputs:[{k:"a",label:"Dame la calificación 1:",ph:"ej. 90"},{k:"b",label:"Dame la calificación 2:",ph:"ej. 85"},{k:"c",label:"Dame la calificación 3:",ph:"ej. 95"}],
+  run:"prom3", ejemplo:"Dame la calificación 1: 90\nDame la calificación 2: 85\nDame la calificación 3: 95\nEl promedio es: 90.00",
+  aprendi:"Que los paréntesis cambian el resultado: sin ellos, solo la última calificación se dividiría entre 3." },
+{ n:4, tema:3, titulo:"Área del cuadrado", estructura:"Secuenciación",
+  objetivo:"Calcular el área de un cuadrado a partir de la medida de su lado.",
+  pseudo:"Inicio\n  Definir lado, area como real\n  Escribir \"Dame el lado: \"\n  Leer lado\n  area ← lado * lado\n  Escribir \"El área es: \", area\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    float lado, area;\n    printf("Dame el lado del cuadrado: ");\n    scanf("%f", &lado);\n    area = lado * lado;\n    printf("El area es: %.2f", area);\n    return 0;\n}',
+  inputs:[{k:"a",label:"Dame el lado del cuadrado:",ph:"ej. 5"}],
+  run:"cuadrado", ejemplo:"Dame el lado del cuadrado: 5\nEl área es: 25.00",
+  aprendi:"A traducir una fórmula geométrica sencilla a una expresión en C." },
+{ n:5, tema:3, titulo:"Área del rectángulo", estructura:"Secuenciación",
+  objetivo:"Calcular el área de un rectángulo multiplicando su base por su altura.",
+  pseudo:"Inicio\n  Definir base, altura, area como real\n  Leer base, altura\n  area ← base * altura\n  Escribir \"El área es: \", area\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    float base, altura, area;\n    printf("Dame la base: ");\n    scanf("%f", &base);\n    printf("Dame la altura: ");\n    scanf("%f", &altura);\n    area = base * altura;\n    printf("El area es: %.2f", area);\n    return 0;\n}',
+  inputs:[{k:"a",label:"Dame la base:",ph:"ej. 8"},{k:"b",label:"Dame la altura:",ph:"ej. 3"}],
+  run:"rectangulo", ejemplo:"Dame la base: 8\nDame la altura: 3\nEl área es: 24.00",
+  aprendi:"A trabajar con dos datos de entrada independientes en el mismo programa." },
+{ n:6, tema:3, titulo:"Área del círculo", estructura:"Secuenciación",
+  objetivo:"Calcular el área de un círculo usando la constante π y el radio dado por el usuario.",
+  pseudo:"Inicio\n  Definir radio, area como real\n  Leer radio\n  area ← 3.1416 * radio * radio\n  Escribir \"El área es: \", area\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    float radio, area;\n    printf("Dame el radio del circulo: ");\n    scanf("%f", &radio);\n    area = 3.1416 * radio * radio;\n    printf("El area es: %.2f", area);\n    return 0;\n}',
+  inputs:[{k:"a",label:"Dame el radio del círculo:",ph:"ej. 4"}],
+  run:"circulo", ejemplo:"Dame el radio del círculo: 4\nEl área es: 50.27",
+  aprendi:"Que elevar al cuadrado en C se escribe multiplicando la variable por sí misma, y a usar una constante con decimales." },
+{ n:7, tema:3, titulo:"Área del trapecio", estructura:"Secuenciación",
+  objetivo:"Calcular el área de un trapecio con su base mayor, base menor y altura.",
+  pseudo:"Inicio\n  Definir B, b, h, area como real\n  Leer B, b, h\n  area ← ((B + b) * h) / 2\n  Escribir \"El área es: \", area\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    float B, b, h, area;\n    printf("Dame la base mayor: ");\n    scanf("%f", &B);\n    printf("Dame la base menor: ");\n    scanf("%f", &b);\n    printf("Dame la altura: ");\n    scanf("%f", &h);\n    area = ((B + b) * h) / 2;\n    printf("El area es: %.2f", area);\n    return 0;\n}',
+  inputs:[{k:"a",label:"Dame la base mayor:",ph:"ej. 10"},{k:"b",label:"Dame la base menor:",ph:"ej. 6"},{k:"c",label:"Dame la altura:",ph:"ej. 4"}],
+  run:"trapecio", ejemplo:"Dame la base mayor: 10\nDame la base menor: 6\nDame la altura: 4\nEl área es: 32.00",
+  aprendi:"A respetar el orden de una fórmula con varios pasos usando paréntesis." },
+
+/* ---------- Prácticas 8–20 · Selectiva ---------- */
+{ n:8, tema:4, titulo:"Positivo o negativo", estructura:"Selectiva simple",
+  objetivo:"Determinar si un número es positivo usando una decisión simple.",
+  pseudo:"Inicio\n  Definir n como real\n  Leer n\n  Si n > 0 Entonces\n    Escribir \"Es positivo\"\n  Fin Si\n  Si n < 0 Entonces\n    Escribir \"Es negativo\"\n  Fin Si\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    float n;\n    printf("Dame un numero: ");\n    scanf("%f", &n);\n    if (n > 0) printf("Es positivo");\n    if (n < 0) printf("Es negativo");\n    if (n == 0) printf("Es cero");\n    return 0;\n}',
+  inputs:[{k:"a",label:"Dame un número:",ph:"ej. -7"}],
+  run:"posneg", ejemplo:"Dame un número: -7\nEs negativo",
+  aprendi:"A usar if para ejecutar instrucciones solo cuando se cumple una condición." },
+{ n:9, tema:4, titulo:"Par o impar", estructura:"Selectiva doble",
+  objetivo:"Decidir si un número entero es par o impar con el operador módulo.",
+  pseudo:"Inicio\n  Definir n como entero\n  Leer n\n  Si n mod 2 = 0 Entonces\n    Escribir \"Es par\"\n  SiNo\n    Escribir \"Es impar\"\n  Fin Si\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int n;\n    printf("Dame un numero entero: ");\n    scanf("%d", &n);\n    if (n % 2 == 0)\n        printf("Es par");\n    else\n        printf("Es impar");\n    return 0;\n}',
+  inputs:[{k:"a",label:"Dame un número entero:",ph:"ej. 13",entero:1}],
+  run:"parimpar", ejemplo:"Dame un número entero: 13\nEs impar",
+  aprendi:"Que el módulo % da el residuo de la división, y que si el residuo entre 2 es cero el número es par." },
+{ n:10, tema:4, titulo:"Mayor de dos números", estructura:"Selectiva doble",
+  objetivo:"Comparar dos números y mostrar cuál es el mayor.",
+  pseudo:"Inicio\n  Definir a, b como real\n  Leer a, b\n  Si a > b Entonces\n    Escribir \"El mayor es: \", a\n  SiNo\n    Escribir \"El mayor es: \", b\n  Fin Si\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    float a, b;\n    printf("Dame el primer numero: ");\n    scanf("%f", &a);\n    printf("Dame el segundo numero: ");\n    scanf("%f", &b);\n    if (a > b)\n        printf("El mayor es: %.2f", a);\n    else\n        printf("El mayor es: %.2f", b);\n    return 0;\n}',
+  inputs:[{k:"a",label:"Dame el primer número:",ph:"ej. 9"},{k:"b",label:"Dame el segundo número:",ph:"ej. 14"}],
+  run:"mayor2", ejemplo:"Dame el primer número: 9\nDame el segundo número: 14\nEl mayor es: 14.00",
+  aprendi:"La estructura if–else: un camino cuando la condición se cumple y otro cuando no." },
+{ n:11, tema:4, titulo:"Mayor de tres números", estructura:"Selectiva doble",
+  objetivo:"Encontrar el mayor de tres números comparándolos por pares.",
+  pseudo:"Inicio\n  Definir a, b, c como real\n  Leer a, b, c\n  Si a >= b y a >= c Entonces\n    Escribir \"El mayor es: \", a\n  SiNo, si b >= a y b >= c Entonces\n    Escribir \"El mayor es: \", b\n  SiNo\n    Escribir \"El mayor es: \", c\n  Fin Si\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    float a, b, c;\n    printf("Dame tres numeros: ");\n    scanf("%f %f %f", &a, &b, &c);\n    if (a >= b && a >= c)\n        printf("El mayor es: %.2f", a);\n    else if (b >= a && b >= c)\n        printf("El mayor es: %.2f", b);\n    else\n        printf("El mayor es: %.2f", c);\n    return 0;\n}',
+  inputs:[{k:"a",label:"Primer número:",ph:"ej. 4"},{k:"b",label:"Segundo número:",ph:"ej. 19"},{k:"c",label:"Tercer número:",ph:"ej. 11"}],
+  run:"mayor3", ejemplo:"Primer número: 4\nSegundo número: 19\nTercer número: 11\nEl mayor es: 19.00",
+  aprendi:"A combinar condiciones con && (y) para comparar un valor contra dos al mismo tiempo." },
+{ n:12, tema:4, titulo:"Aprobado o reprobado", estructura:"Selectiva doble",
+  objetivo:"Indicar si una calificación es aprobatoria (70 o más) o no.",
+  pseudo:"Inicio\n  Definir cal como real\n  Leer cal\n  Si cal >= 70 Entonces\n    Escribir \"Aprobado\"\n  SiNo\n    Escribir \"Reprobado\"\n  Fin Si\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    float cal;\n    printf("Dame la calificacion: ");\n    scanf("%f", &cal);\n    if (cal >= 70)\n        printf("Aprobado");\n    else\n        printf("Reprobado");\n    return 0;\n}',
+  inputs:[{k:"a",label:"Dame la calificación:",ph:"ej. 85"}],
+  run:"aprobado", ejemplo:"Dame la calificación: 85\nAprobado",
+  aprendi:"A usar operadores relacionales (>=) para convertir una regla en una condición." },
+{ n:13, tema:4, titulo:"Menú de operaciones básicas", estructura:"Selectiva múltiple",
+  objetivo:"Sumar, restar, multiplicar o dividir dos números según la opción elegida en un menú, con switch.",
+  pseudo:"Inicio\n  Definir op como entero, a, b como real\n  Leer a, b, op\n  Según op\n    Caso 1: Escribir a + b\n    Caso 2: Escribir a - b\n    Caso 3: Escribir a * b\n    Caso 4: Escribir a / b\n    Otro caso: Escribir \"Opción inválida\"\n  Fin Según\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int op; float a, b;\n    printf("Dame dos numeros: ");\n    scanf("%f %f", &a, &b);\n    printf("1) Suma  2) Resta  3) Multiplicacion  4) Division\\n");\n    printf("Elige una opcion: ");\n    scanf("%d", &op);\n    switch (op) {\n        case 1: printf("Resultado: %.2f", a + b); break;\n        case 2: printf("Resultado: %.2f", a - b); break;\n        case 3: printf("Resultado: %.2f", a * b); break;\n        case 4:\n            if (b != 0) printf("Resultado: %.2f", a / b);\n            else printf("No se puede dividir entre cero");\n            break;\n        default: printf("Opcion invalida");\n    }\n    return 0;\n}',
+  inputs:[{k:"a",label:"Primer número:",ph:"ej. 12"},{k:"b",label:"Segundo número:",ph:"ej. 4"},{k:"c",label:"Opción (1 suma, 2 resta, 3 mult., 4 div.):",ph:"ej. 1",entero:1}],
+  run:"menuops", ejemplo:"Primer número: 12\nSegundo número: 4\nOpción: 1\nResultado: 16.00",
+  aprendi:"A usar switch con break en cada caso, y a cuidar la división entre cero." },
+{ n:14, tema:4, titulo:"Menú de conversiones", estructura:"Selectiva múltiple",
+  objetivo:"Convertir una cantidad de metros a centímetros, pulgadas o pies según el menú elegido.",
+  pseudo:"Inicio\n  Definir op como entero, m como real\n  Leer m, op\n  Según op\n    Caso 1: Escribir m * 100, \" cm\"\n    Caso 2: Escribir m * 39.3701, \" in\"\n    Caso 3: Escribir m * 3.28084, \" ft\"\n    Otro caso: Escribir \"Opción inválida\"\n  Fin Según\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int op; float m;\n    printf("Dame los metros: ");\n    scanf("%f", &m);\n    printf("1) Centimetros  2) Pulgadas  3) Pies\\n");\n    printf("Elige una opcion: ");\n    scanf("%d", &op);\n    switch (op) {\n        case 1: printf("%.2f cm", m * 100); break;\n        case 2: printf("%.2f in", m * 39.3701); break;\n        case 3: printf("%.2f ft", m * 3.28084); break;\n        default: printf("Opcion invalida");\n    }\n    return 0;\n}',
+  inputs:[{k:"a",label:"Dame los metros:",ph:"ej. 2"},{k:"b",label:"Opción (1 cm, 2 in, 3 ft):",ph:"ej. 2",entero:1}],
+  run:"menuconv", ejemplo:"Dame los metros: 2\nOpción: 2\n78.74 in",
+  aprendi:"Que un mismo dato de entrada puede tener varias salidas posibles según la opción del switch." },
+{ n:15, tema:4, titulo:"Menú de áreas", estructura:"Selectiva múltiple",
+  objetivo:"Calcular el área de un cuadrado, rectángulo o círculo eligiendo la figura en un menú.",
+  pseudo:"Inicio\n  Definir op como entero\n  Leer op\n  Según op\n    Caso 1: Leer lado, Escribir lado * lado\n    Caso 2: Leer base y altura, Escribir base * altura\n    Caso 3: Leer radio, Escribir 3.1416 * radio * radio\n    Otro caso: Escribir \"Opción inválida\"\n  Fin Según\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int op; float x, y;\n    printf("1) Cuadrado  2) Rectangulo  3) Circulo\\n");\n    printf("Elige una figura: ");\n    scanf("%d", &op);\n    switch (op) {\n        case 1:\n            printf("Dame el lado: "); scanf("%f", &x);\n            printf("Area: %.2f", x * x); break;\n        case 2:\n            printf("Dame base y altura: "); scanf("%f %f", &x, &y);\n            printf("Area: %.2f", x * y); break;\n        case 3:\n            printf("Dame el radio: "); scanf("%f", &x);\n            printf("Area: %.2f", 3.1416 * x * x); break;\n        default: printf("Opcion invalida");\n    }\n    return 0;\n}',
+  inputs:[{k:"a",label:"Figura (1 cuadrado, 2 rectángulo, 3 círculo):",ph:"ej. 3",entero:1},{k:"b",label:"Medida 1 (lado / base / radio):",ph:"ej. 4"},{k:"c",label:"Medida 2 (solo rectángulo: altura):",ph:"ej. 5"}],
+  run:"menuareas", ejemplo:"Figura: 3\nMedida 1: 4\nÁrea: 50.27",
+  aprendi:"A pedir datos distintos dentro de cada caso del switch, según la figura elegida." },
+{ n:16, tema:4, titulo:"Nombre del mes", estructura:"Selectiva múltiple",
+  objetivo:"Mostrar el nombre del mes que corresponde a un número del 1 al 12.",
+  pseudo:"Inicio\n  Definir m como entero\n  Leer m\n  Según m\n    Caso 1: Escribir \"Enero\"\n    ...\n    Caso 12: Escribir \"Diciembre\"\n    Otro caso: Escribir \"Mes inválido\"\n  Fin Según\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int m;\n    char *meses[] = {"Enero","Febrero","Marzo","Abril","Mayo","Junio",\n                     "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};\n    printf("Dame el numero de mes (1-12): ");\n    scanf("%d", &m);\n    switch (m) {\n        case 1: case 2: case 3: case 4: case 5: case 6:\n        case 7: case 8: case 9: case 10: case 11: case 12:\n            printf("%s", meses[m - 1]); break;\n        default: printf("Mes invalido");\n    }\n    return 0;\n}',
+  inputs:[{k:"a",label:"Número de mes (1–12):",ph:"ej. 11",entero:1}],
+  run:"mes", ejemplo:"Número de mes: 11\nNoviembre",
+  aprendi:"Que el default del switch sirve para atrapar cualquier valor fuera del rango esperado." },
+{ n:17, tema:4, titulo:"Vocal o consonante", estructura:"Selectiva múltiple",
+  objetivo:"Clasificar una letra como vocal o consonante agrupando casos en el switch.",
+  pseudo:"Inicio\n  Definir letra como carácter\n  Leer letra\n  Según letra\n    Caso 'a', 'e', 'i', 'o', 'u': Escribir \"Es vocal\"\n    Otro caso: Escribir \"Es consonante\"\n  Fin Según\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    char letra;\n    printf("Dame una letra: ");\n    scanf(" %c", &letra);\n    switch (letra) {\n        case \'a\': case \'e\': case \'i\': case \'o\': case \'u\':\n        case \'A\': case \'E\': case \'I\': case \'O\': case \'U\':\n            printf("Es vocal"); break;\n        default: printf("Es consonante");\n    }\n    return 0;\n}',
+  inputs:[{k:"a",label:"Dame una letra:",ph:"ej. e",texto:1}],
+  run:"vocal", ejemplo:"Dame una letra: e\nEs vocal",
+  aprendi:"Que varios case pueden compartir el mismo bloque si se escriben seguidos sin break entre ellos." },
+{ n:18, tema:4, titulo:"Calificación con letra", estructura:"Selectiva múltiple",
+  objetivo:"Convertir una calificación numérica a su letra (A, B, C, D, F) dividiéndola entre 10 dentro del switch.",
+  pseudo:"Inicio\n  Definir cal como entero\n  Leer cal\n  Según cal / 10\n    Caso 10, 9: Escribir \"A\"\n    Caso 8: Escribir \"B\"\n    Caso 7: Escribir \"C\"\n    Caso 6: Escribir \"D\"\n    Otro caso: Escribir \"F\"\n  Fin Según\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int cal;\n    printf("Dame la calificacion (0-100): ");\n    scanf("%d", &cal);\n    switch (cal / 10) {\n        case 10: case 9: printf("A"); break;\n        case 8: printf("B"); break;\n        case 7: printf("C"); break;\n        case 6: printf("D"); break;\n        default: printf("F");\n    }\n    return 0;\n}',
+  inputs:[{k:"a",label:"Calificación (0–100):",ph:"ej. 92",entero:1}],
+  run:"letra", ejemplo:"Calificación: 92\nA",
+  aprendi:"Que en el switch se puede evaluar una expresión (cal / 10) y no solo una variable." },
+{ n:19, tema:4, titulo:"Día de la semana", estructura:"Selectiva múltiple",
+  objetivo:"Mostrar el día de la semana que corresponde a un número del 1 al 7.",
+  pseudo:"Inicio\n  Definir d como entero\n  Leer d\n  Según d\n    Caso 1: Escribir \"Lunes\"\n    ...\n    Caso 7: Escribir \"Domingo\"\n    Otro caso: Escribir \"Día inválido\"\n  Fin Según\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int d;\n    char *dias[] = {"Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"};\n    printf("Dame el numero de dia (1-7): ");\n    scanf("%d", &d);\n    if (d >= 1 && d <= 7) printf("%s", dias[d - 1]);\n    else printf("Dia invalido");\n    return 0;\n}',
+  inputs:[{k:"a",label:"Número de día (1–7):",ph:"ej. 5",entero:1}],
+  run:"dia", ejemplo:"Número de día: 5\nViernes",
+  aprendi:"A validar el rango de entrada antes de usar el valor, para no salir del arreglo de días." },
+{ n:20, tema:4, titulo:"Ordenar 3 números", estructura:"Selectiva anidada",
+  objetivo:"Ordenar tres números de menor a mayor usando decisiones anidadas.",
+  pseudo:"Inicio\n  Definir a, b, c como real\n  Leer a, b, c\n  Si a <= b Entonces\n    Si b <= c Entonces\n      Escribir a, b, c\n    SiNo, si a <= c Entonces\n      Escribir a, c, b\n    SiNo\n      Escribir c, a, b\n  SiNo\n    ... (rama simétrica)\n  Fin Si\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    float a, b, c;\n    printf("Dame tres numeros: ");\n    scanf("%f %f %f", &a, &b, &c);\n    if (a <= b) {\n        if (b <= c)      printf("%.2f, %.2f, %.2f", a, b, c);\n        else if (a <= c) printf("%.2f, %.2f, %.2f", a, c, b);\n        else             printf("%.2f, %.2f, %.2f", c, a, b);\n    } else {\n        if (a <= c)      printf("%.2f, %.2f, %.2f", b, a, c);\n        else if (b <= c) printf("%.2f, %.2f, %.2f", b, c, a);\n        else             printf("%.2f, %.2f, %.2f", c, b, a);\n    }\n    return 0;\n}',
+  inputs:[{k:"a",label:"Primer número:",ph:"ej. 9"},{k:"b",label:"Segundo número:",ph:"ej. 2"},{k:"c",label:"Tercer número:",ph:"ej. 5"}],
+  run:"ordenar3", ejemplo:"Primer número: 9\nSegundo número: 2\nTercer número: 5\nOrdenados: 2.00, 5.00, 9.00",
+  aprendi:"A anidar un if dentro de otro para cubrir todas las combinaciones posibles de tres valores." }
+];
+
+/* ---------- Prácticas 21–33 · Repetición ---------- */
+PRACTICAS.push(
+{ n:21, tema:5, titulo:"Serie numérica con while", estructura:"Repetición · mientras (while)",
+  objetivo:"Imprimir una serie de números usando un ciclo while con contador.",
+  pseudo:"Inicio\n  Definir i como entero\n  i ← 1\n  Mientras i <= 10 Hacer\n    Escribir i\n    i ← i + 1\n  Fin Mientras\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int i = 1;\n    while (i <= 10) {\n        printf("%d ", i);\n        i = i + 1;\n    }\n    return 0;\n}',
+  inputs:[{k:"a",label:"¿Hasta qué número llega la serie?",ph:"ej. 10",entero:1}],
+  run:"serieWhile", ejemplo:"¿Hasta qué número? 10\n1 2 3 4 5 6 7 8 9 10",
+  aprendi:"Que en el while la condición se revisa antes de cada vuelta, y que el contador debe avanzar dentro del ciclo para no ciclar infinito." },
+{ n:22, tema:5, titulo:"Impares del 105 al 1", estructura:"Repetición · mientras (while)",
+  objetivo:"Mostrar los números impares del 105 hacia abajo hasta el 1, con un contador que baja de 2 en 2.",
+  pseudo:"Inicio\n  Definir i como entero\n  i ← 105\n  Mientras i >= 1 Hacer\n    Escribir i\n    i ← i - 2\n  Fin Mientras\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int i = 105;\n    while (i >= 1) {\n        printf("%d ", i);\n        i = i - 2;\n    }\n    return 0;\n}',
+  inputs:[], run:"impares105", ejemplo:"105 103 101 99 … 5 3 1",
+  aprendi:"Que un contador puede bajar en lugar de subir, y que bajar de 2 en 2 desde un impar recorre solo los impares." },
+{ n:23, tema:5, titulo:"Potencia con while", estructura:"Repetición · mientras (while)",
+  objetivo:"Calcular la potencia de un número multiplicándolo por sí mismo tantas veces como indique el exponente, con un ciclo while y un acumulador.",
+  pseudo:"Inicio\n  Definir base, exp, i como entero, pot como entero\n  Leer base, exp\n  pot ← 1, i ← 1\n  Mientras i <= exp Hacer\n    pot ← pot * base\n    i ← i + 1\n  Fin Mientras\n  Escribir \"Resultado: \", pot\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int base, exp, i = 1, pot = 1;\n    printf("Dame la base: ");\n    scanf("%d", &base);\n    printf("Dame el exponente: ");\n    scanf("%d", &exp);\n    while (i <= exp) {\n        pot = pot * base;\n        i = i + 1;\n    }\n    printf("Resultado: %d", pot);\n    return 0;\n}',
+  inputs:[{k:"a",label:"Dame la base:",ph:"ej. 2",entero:1},{k:"b",label:"Dame el exponente:",ph:"ej. 8",entero:1}],
+  run:"potencia", ejemplo:"Dame la base: 2\nDame el exponente: 8\nResultado: 256",
+  aprendi:"A usar un acumulador que multiplica en lugar de sumar, empezando en 1 porque es el neutro de la multiplicación." },
+{ n:24, tema:5, titulo:"Factorial con do-while", estructura:"Repetición · hacer-mientras (do-while)",
+  objetivo:"Calcular el factorial de un número con un ciclo do-while, que se ejecuta al menos una vez.",
+  pseudo:"Inicio\n  Definir n, i, f como entero\n  Leer n\n  f ← 1, i ← 1\n  Hacer\n    f ← f * i\n    i ← i + 1\n  Mientras i <= n\n  Escribir \"Factorial: \", f\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int n, i = 1, f = 1;\n    printf("Dame un numero: ");\n    scanf("%d", &n);\n    do {\n        f = f * i;\n        i = i + 1;\n    } while (i <= n);\n    printf("Factorial: %d", f);\n    return 0;\n}',
+  inputs:[{k:"a",label:"Dame un número:",ph:"ej. 5",entero:1}],
+  run:"factorialDW", ejemplo:"Dame un número: 5\nFactorial: 120",
+  aprendi:"La diferencia del do-while: el bloque se ejecuta primero y la condición se revisa al final." },
+{ n:25, tema:5, titulo:"Tabla del 7 con do-while", estructura:"Repetición · hacer-mientras (do-while)",
+  objetivo:"Imprimir la tabla de multiplicar del 7, del 1 al 10, con un ciclo do-while.",
+  pseudo:"Inicio\n  Definir i como entero\n  i ← 1\n  Hacer\n    Escribir \"7 x \", i, \" = \", 7 * i\n    i ← i + 1\n  Mientras i <= 10\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int i = 1;\n    do {\n        printf("7 x %d = %d\\n", i, 7 * i);\n        i = i + 1;\n    } while (i <= 10);\n    return 0;\n}',
+  inputs:[], run:"tabla7", ejemplo:"7 x 1 = 7\n7 x 2 = 14\n…\n7 x 10 = 70",
+  aprendi:"A generar una tabla completa controlando el ciclo con un contador del 1 al 10." },
+{ n:26, tema:5, titulo:"Suma hasta capturar cero", estructura:"Repetición · hacer-mientras (do-while)",
+  objetivo:"Sumar los números que el usuario escriba y detenerse cuando capture un cero, aprovechando que el do-while lee al menos un dato.",
+  pseudo:"Inicio\n  Definir n, suma como entero\n  suma ← 0\n  Hacer\n    Leer n\n    suma ← suma + n\n  Mientras n != 0\n  Escribir \"Suma total: \", suma\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int n, suma = 0;\n    do {\n        printf("Dame un numero (0 para terminar): ");\n        scanf("%d", &n);\n        suma = suma + n;\n    } while (n != 0);\n    printf("Suma total: %d", suma);\n    return 0;\n}',
+  inputs:[{k:"a",label:"Números separados por comas (termina con 0):",ph:"ej. 4, 8, 15, 0",texto:1}],
+  run:"sumaCero", ejemplo:"4, 8, 15, 0\nSuma total: 27",
+  aprendi:"El uso clásico del do-while: pedir el dato primero y decidir después si se repite." },
+{ n:27, tema:5, titulo:"Tabla del 4 con for", estructura:"Repetición · desde (for)",
+  objetivo:"Imprimir la tabla de multiplicar del 4 usando un ciclo for.",
+  pseudo:"Inicio\n  Definir i como entero\n  Para i ← 1 hasta 10\n    Escribir \"4 x \", i, \" = \", 4 * i\n  Fin Para\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int i;\n    for (i = 1; i <= 10; i++) {\n        printf("4 x %d = %d\\n", i, 4 * i);\n    }\n    return 0;\n}',
+  inputs:[], run:"tabla4", ejemplo:"4 x 1 = 4\n4 x 2 = 8\n…\n4 x 10 = 40",
+  aprendi:"Que el for junta en una sola línea el inicio, la condición y el incremento del contador." },
+{ n:28, tema:5, titulo:"Promedio de calificaciones con for", estructura:"Repetición · desde (for)",
+  objetivo:"Pedir una cantidad definida de calificaciones con un ciclo for, acumularlas y mostrar el promedio.",
+  pseudo:"Inicio\n  Definir n, i como entero, cal, suma, prom como real\n  Leer n\n  suma ← 0\n  Para i ← 1 hasta n\n    Leer cal\n    suma ← suma + cal\n  Fin Para\n  prom ← suma / n\n  Escribir \"Promedio: \", prom\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int n, i; float cal, suma = 0, prom;\n    printf("Cuantas calificaciones: ");\n    scanf("%d", &n);\n    for (i = 1; i <= n; i++) {\n        printf("Calificacion %d: ", i);\n        scanf("%f", &cal);\n        suma = suma + cal;\n    }\n    prom = suma / n;\n    printf("Promedio: %.2f", prom);\n    return 0;\n}',
+  inputs:[{k:"a",label:"Calificaciones separadas por comas:",ph:"ej. 90, 85, 95, 100",texto:1}],
+  run:"promFor", ejemplo:"90, 85, 95, 100\nPromedio: 92.50",
+  aprendi:"A combinar contador y acumulador en el mismo ciclo: el for cuenta las vueltas y la suma guarda el total." },
+{ n:29, tema:5, titulo:"Tabla de multiplicar con for", estructura:"Repetición · desde (for)",
+  objetivo:"Imprimir la tabla de multiplicar del número que pida el usuario.",
+  pseudo:"Inicio\n  Definir n, i como entero\n  Leer n\n  Para i ← 1 hasta 10\n    Escribir n, \" x \", i, \" = \", n * i\n  Fin Para\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int n, i;\n    printf("Dame el numero de la tabla: ");\n    scanf("%d", &n);\n    for (i = 1; i <= 10; i++) {\n        printf("%d x %d = %d\\n", n, i, n * i);\n    }\n    return 0;\n}',
+  inputs:[{k:"a",label:"¿De qué número quieres la tabla?",ph:"ej. 6",entero:1}],
+  run:"tablaN", ejemplo:"Tabla del 6:\n6 x 1 = 6\n…\n6 x 10 = 60",
+  aprendi:"Que el mismo ciclo sirve para cualquier tabla si el número fijo se convierte en variable." },
+{ n:30, tema:5, titulo:"Suma de pares y producto de impares", estructura:"Repetición · desde (for)",
+  objetivo:"Recorrer los números del 1 al 20: sumar los pares y multiplicar los impares, decidiendo con un if dentro del for.",
+  pseudo:"Inicio\n  Definir i, suma como entero, prod como entero largo\n  suma ← 0, prod ← 1\n  Para i ← 1 hasta 20\n    Si i mod 2 = 0 Entonces\n      suma ← suma + i\n    SiNo\n      prod ← prod * i\n    Fin Si\n  Fin Para\n  Escribir \"Suma de pares: \", suma\n  Escribir \"Producto de impares: \", prod\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int i, suma = 0;\n    long prod = 1;\n    for (i = 1; i <= 20; i++) {\n        if (i % 2 == 0) suma = suma + i;\n        else prod = prod * i;\n    }\n    printf("Suma de pares: %d\\n", suma);\n    printf("Producto de impares: %ld", prod);\n    return 0;\n}',
+  inputs:[{k:"a",label:"¿Hasta qué número llega el recorrido?",ph:"ej. 10",entero:1}],
+  run:"paresImpares", ejemplo:"Hasta el 10:\nSuma de pares: 30\nProducto de impares: 945",
+  aprendi:"Que un acumulador de multiplicación puede crecer rapidísimo: el producto de impares se sale del int y necesita un tipo más grande." },
+{ n:31, tema:5, titulo:"Tablas del 1 al 10 — for anidado", estructura:"Repetición · anidadas",
+  objetivo:"Imprimir las tablas de multiplicar del 1 al 10 con un for dentro de otro for (trabajo en equipo).",
+  pseudo:"Inicio\n  Definir t, i como entero\n  Para t ← 1 hasta 10\n    Para i ← 1 hasta 10\n      Escribir t, \" x \", i, \" = \", t * i\n    Fin Para\n  Fin Para\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int t, i;\n    for (t = 1; t <= 10; t++) {\n        printf("Tabla del %d\\n", t);\n        for (i = 1; i <= 10; i++) {\n            printf("%d x %d = %d\\n", t, i, t * i);\n        }\n    }\n    return 0;\n}',
+  inputs:[{k:"a",label:"¿Hasta qué tabla quieres llegar?",ph:"ej. 3",entero:1}],
+  run:"tablasFor", ejemplo:"Tabla del 1 … Tabla del 10, cada una con sus 10 renglones.",
+  aprendi:"Que el ciclo interno se completa entero por cada vuelta del externo: 10 tablas por 10 renglones son 100 operaciones." },
+{ n:32, tema:5, titulo:"Tablas del 1 al 10 — while anidado", estructura:"Repetición · anidadas",
+  objetivo:"Imprimir las tablas del 1 al 10 usando ciclos while anidados, reiniciando el contador interno en cada tabla.",
+  pseudo:"Inicio\n  Definir t, i como entero\n  t ← 1\n  Mientras t <= 10 Hacer\n    i ← 1\n    Mientras i <= 10 Hacer\n      Escribir t, \" x \", i, \" = \", t * i\n      i ← i + 1\n    Fin Mientras\n    t ← t + 1\n  Fin Mientras\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int t = 1, i;\n    while (t <= 10) {\n        printf("Tabla del %d\\n", t);\n        i = 1;\n        while (i <= 10) {\n            printf("%d x %d = %d\\n", t, i, t * i);\n            i = i + 1;\n        }\n        t = t + 1;\n    }\n    return 0;\n}',
+  inputs:[{k:"a",label:"¿Hasta qué tabla quieres llegar?",ph:"ej. 3",entero:1}],
+  run:"tablasWhile", ejemplo:"Tabla del 1 … Tabla del 10, cada una con sus 10 renglones.",
+  aprendi:"El error clásico de los ciclos anidados con while: si no se reinicia el contador interno, solo sale bien la primera tabla." },
+{ n:33, tema:5, titulo:"Tablas del 1 al 10 — do-while anidado", estructura:"Repetición · anidadas",
+  objetivo:"Imprimir las tablas del 1 al 10 con ciclos do-while anidados.",
+  pseudo:"Inicio\n  Definir t, i como entero\n  t ← 1\n  Hacer\n    i ← 1\n    Hacer\n      Escribir t, \" x \", i, \" = \", t * i\n      i ← i + 1\n    Mientras i <= 10\n    t ← t + 1\n  Mientras t <= 10\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int t = 1, i;\n    do {\n        printf("Tabla del %d\\n", t);\n        i = 1;\n        do {\n            printf("%d x %d = %d\\n", t, i, t * i);\n            i = i + 1;\n        } while (i <= 10);\n        t = t + 1;\n    } while (t <= 10);\n    return 0;\n}',
+  inputs:[{k:"a",label:"¿Hasta qué tabla quieres llegar?",ph:"ej. 3",entero:1}],
+  run:"tablasDoWhile", ejemplo:"Tabla del 1 … Tabla del 10, cada una con sus 10 renglones.",
+  aprendi:"Que las tres estructuras anidadas dan el mismo resultado; cambia dónde se evalúa la condición, no la lógica del problema." },
+
+/* ---------- Prácticas 34–40 · Arreglos ---------- */
+{ n:34, tema:6, titulo:"Suma de dos arreglos (A + B = C)", estructura:"Arreglos unidimensionales",
+  objetivo:"Llenar dos arreglos posición por posición y guardar en un tercero la suma de ambos.",
+  pseudo:"Inicio\n  Definir A[5], B[5], C[5] como real, i como entero\n  Para i ← 0 hasta 4\n    Leer A[i], B[i]\n    C[i] ← A[i] + B[i]\n  Fin Para\n  Para i ← 0 hasta 4\n    Escribir A[i], \" + \", B[i], \" = \", C[i]\n  Fin Para\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    float A[5], B[5], C[5]; int i;\n    for (i = 0; i < 5; i++) {\n        printf("Dame A[%d] y B[%d]: ", i, i);\n        scanf("%f %f", &A[i], &B[i]);\n        C[i] = A[i] + B[i];\n    }\n    for (i = 0; i < 5; i++)\n        printf("%.2f + %.2f = %.2f\\n", A[i], B[i], C[i]);\n    return 0;\n}',
+  inputs:[{k:"a",label:"Arreglo A (5 números, separados por comas):",ph:"ej. 1, 2, 3, 4, 5",texto:1},{k:"b",label:"Arreglo B (5 números, separados por comas):",ph:"ej. 10, 20, 30, 40, 50",texto:1}],
+  run:"sumaArreglos", ejemplo:"A: 1, 2, 3, 4, 5\nB: 10, 20, 30, 40, 50\n1 + 10 = 11 … 5 + 50 = 55",
+  aprendi:"Que los arreglos se recorren con el índice, y que la misma posición i conecta los datos de los tres arreglos." },
+{ n:35, tema:6, titulo:"Promedio de 10 calificaciones", estructura:"Arreglos unidimensionales",
+  objetivo:"Guardar 10 calificaciones en un arreglo, mostrarlas y calcular su promedio.",
+  pseudo:"Inicio\n  Definir cal[10] como real, suma como real, i como entero\n  suma ← 0\n  Para i ← 0 hasta 9\n    Leer cal[i]\n    suma ← suma + cal[i]\n  Fin Para\n  Escribir \"Promedio: \", suma / 10\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    float cal[10], suma = 0; int i;\n    for (i = 0; i < 10; i++) {\n        printf("Dame la calificacion %d: ", i + 1);\n        scanf("%f", &cal[i]);\n        suma = suma + cal[i];\n    }\n    printf("Promedio: %.2f", suma / 10);\n    return 0;\n}',
+  inputs:[{k:"a",label:"10 calificaciones separadas por comas:",ph:"ej. 80, 90, 100, 70, 85, 95, 88, 92, 76, 84",texto:1}],
+  run:"promArreglo", ejemplo:"Promedio: 86.00",
+  aprendi:"La ventaja del arreglo frente a variables sueltas: un solo ciclo captura, guarda y procesa los 10 datos." },
+{ n:36, tema:6, titulo:"Captura y recorrido de un arreglo", estructura:"Arreglos unidimensionales",
+  objetivo:"Llenar un arreglo con los datos del usuario y recorrerlo para mostrarlo en orden y en orden inverso.",
+  pseudo:"Inicio\n  Definir n[8] como entero, i como entero\n  Para i ← 0 hasta 7\n    Leer n[i]\n  Fin Para\n  Escribir \"En orden: \"\n  Para i ← 0 hasta 7\n    Escribir n[i]\n  Fin Para\n  Escribir \"Al revés: \"\n  Para i ← 7 hasta 0\n    Escribir n[i]\n  Fin Para\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int n[8], i;\n    for (i = 0; i < 8; i++) {\n        printf("Dame el elemento %d: ", i + 1);\n        scanf("%d", &n[i]);\n    }\n    printf("En orden: ");\n    for (i = 0; i < 8; i++) printf("%d ", n[i]);\n    printf("\\nAl reves: ");\n    for (i = 7; i >= 0; i--) printf("%d ", n[i]);\n    return 0;\n}',
+  inputs:[{k:"a",label:"8 números enteros separados por comas:",ph:"ej. 3, 1, 4, 1, 5, 9, 2, 6",texto:1}],
+  run:"recorrido", ejemplo:"En orden: 3 1 4 1 5 9 2 6\nAl revés: 6 2 9 5 1 4 1 3",
+  aprendi:"Que el índice puede avanzar o retroceder, y que la posición 0 es el primer elemento, no la 1." },
+{ n:37, tema:6, titulo:"El mayor de 15 números", estructura:"Arreglos unidimensionales",
+  objetivo:"Guardar 15 números en un arreglo y encontrar el mayor comparando cada elemento contra el mayor parcial.",
+  pseudo:"Inicio\n  Definir n[15] como entero, i, mayor como entero\n  Para i ← 0 hasta 14\n    Escribir \"Dame el elemento \", i + 1\n    Leer n[i]\n  Fin Para\n  mayor ← n[0]\n  Para i ← 0 hasta 14\n    Si n[i] >= mayor Entonces\n      mayor ← n[i]\n    Fin Si\n  Fin Para\n  Escribir \"Este elemento es el mayor: \", mayor\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    int n[15], i, mayor;\n    for (i = 0; i < 15; i++) {\n        printf("Dame el elemento %d: ", i + 1);\n        scanf("%d", &n[i]);\n    }\n    mayor = n[0];\n    for (i = 0; i < 15; i++) {\n        if (n[i] >= mayor) mayor = n[i];\n    }\n    printf("Este elemento es el mayor: %d", mayor);\n    return 0;\n}',
+  inputs:[{k:"a",label:"15 números enteros separados por comas:",ph:"ej. 4, 9, 2, 27, 5, …",texto:1}],
+  run:"mayor15", ejemplo:"Este elemento es el mayor: 27",
+  aprendi:"El patrón de búsqueda del mayor: se parte del primer elemento y cada comparación actualiza el mayor parcial. También que el ciclo debe llegar al índice 14, no al 15, porque el arreglo termina ahí." },
+{ n:38, tema:6, titulo:"Multiplicación de dos arreglos (A × B = C)", estructura:"Arreglos unidimensionales",
+  objetivo:"Multiplicar dos arreglos posición por posición y guardar el resultado en un tercer arreglo.",
+  pseudo:"Inicio\n  Definir A[10], B[10], C[10] como real, i como entero\n  Para i ← 0 hasta 9\n    Leer A[i], B[i]\n    C[i] ← A[i] * B[i]\n  Fin Para\n  Para i ← 0 hasta 9\n    Escribir A[i], \" × \", B[i], \" = \", C[i]\n  Fin Para\nFin",
+  codigo:'#include <stdio.h>\n\nint main() {\n    float A[10], B[10], C[10]; int i;\n    for (i = 0; i < 10; i++) {\n        printf("Dame el dato 1.%d: ", i); scanf("%f", &A[i]);\n        printf("Dame el dato 2.%d: ", i); scanf("%f", &B[i]);\n        C[i] = A[i] * B[i];\n    }\n    for (i = 0; i < 10; i++)\n        printf("%.2f x %.2f = %.2f\\n", A[i], B[i], C[i]);\n    return 0;\n}',
+  inputs:[{k:"a",label:"Arreglo A (hasta 10 números, por comas):",ph:"ej. 2, 3, 4",texto:1},{k:"b",label:"Arreglo B (la misma cantidad, por comas):",ph:"ej. 5, 6, 7",texto:1}],
+  run:"multArreglos", ejemplo:"2 × 5 = 10\n3 × 6 = 18\n4 × 7 = 28",
+  aprendi:"Que operar dos arreglos en paralelo solo requiere usar el mismo índice en la misma vuelta del ciclo." },
+{ n:39, tema:6, titulo:"10 letras a mayúsculas", estructura:"Cadenas de caracteres",
+  objetivo:"Leer 10 letras en un arreglo de caracteres y mostrarlas convertidas a mayúsculas.",
+  pseudo:"Inicio\n  Definir letra[10] como carácter, c como entero\n  Para c ← 0 hasta 9\n    Leer letra[c]\n  Fin Para\n  Para c ← 0 hasta 9\n    Escribir Mayúscula(letra[c])\n  Fin Para\nFin",
+  codigo:'#include <stdio.h>\n#include <ctype.h>\n\nint main() {\n    char letra[10]; int c;\n    for (c = 0; c < 10; c++) {\n        printf("Dame la letra %d: ", c + 1);\n        scanf(" %c", &letra[c]);\n    }\n    for (c = 0; c < 10; c++)\n        printf("%c ", toupper(letra[c]));\n    return 0;\n}',
+  inputs:[{k:"a",label:"Escribe 10 letras (sin espacios):",ph:"ej. programaci",texto:1}],
+  run:"mayusculas", ejemplo:"programaci → P R O G R A M A C I",
+  aprendi:"Que una cadena es un arreglo de caracteres, y que toupper convierte cada letra sin tocar las que ya son mayúsculas. El ciclo va hasta el índice 9: pasarse a 10 lee fuera del arreglo." },
+{ n:40, tema:6, titulo:"Longitud de una oración", estructura:"Cadenas de caracteres",
+  objetivo:"Leer una oración completa con fgets y mostrar cuántos caracteres tiene con strlen.",
+  pseudo:"Inicio\n  Definir cadena como texto, total como entero\n  Escribir \"Introduce una oración (máx. 25 caracteres): \"\n  Leer cadena\n  total ← Longitud(cadena)\n  Escribir \"La longitud de la cadena es: \", total\nFin",
+  codigo:'#include <stdio.h>\n#include <string.h>\n\nint main() {\n    char cadena[26];\n    printf("Introduce una oracion (max. 25 caracteres): ");\n    fgets(cadena, 26, stdin);\n    printf("La longitud de la cadena es: %lu", strlen(cadena));\n    return 0;\n}',
+  inputs:[{k:"a",label:"Introduce una oración (máx. 25 caracteres):",ph:"ej. Hola mundo",texto:1}],
+  run:"longitud", ejemplo:"Hola mundo → La longitud de la cadena es: 10",
+  aprendi:"Que scanf con %s se detiene en el primer espacio y fgets no: por eso las oraciones se leen con fgets. Ojo: fgets también guarda el Enter final, y strlen lo cuenta." },
+
+/* ---------- Prácticas 41–52 · Funciones ---------- */
+{ n:41, tema:7, titulo:"Funciones anidadas — colores", estructura:"Funciones sin retorno",
+  objetivo:"Practicar funciones que se llaman entre sí: color2 llama a color1, y color1 llama a color, imprimiendo colores en cadena.",
+  pseudo:"Función color()\n  Escribir \"Naranja\"\nFin Función\n\nFunción color1()\n  Escribir \"Amarillo\"\n  Llamar color()\n  Escribir \"Gris\"\nFin Función\n\nFunción color2()\n  Llamar color1()\n  Escribir \"Verde\"\nFin Función\n\nInicio\n  Llamar color()\n  Llamar color2()\n  Llamar color1()\nFin",
+  codigo:'#include <stdio.h>\n\nvoid color()  { printf("Naranja\\n"); }\nvoid color1() { printf("Amarillo\\n"); color(); printf("Gris\\n"); }\nvoid color2() { color1(); printf("Verde\\n"); }\n\nint main() {\n    color();\n    color2();\n    color1();\n    return 0;\n}',
+  inputs:[], run:"colores", ejemplo:"Naranja\nAmarillo\nNaranja\nGris\nVerde\nAmarillo\nNaranja\nGris",
+  aprendi:"El orden real de ejecución cuando una función llama a otra: la llamada se pausa, corre la función interna completa y luego continúa." },
+{ n:42, tema:7, titulo:"Promedio de 6 datos (la función imprime)", estructura:"Funciones sin retorno",
+  objetivo:"Encapsular en una función sin retorno todo el proceso de pedir 6 datos, promediarlos e imprimir el resultado.",
+  pseudo:"Función Promediar()\n  Definir n como entero, suma, d1 como real\n  suma ← 0\n  Para n ← 0 hasta 5\n    Escribir \"Ingresa el dato \", n\n    Leer d1\n    suma ← suma + d1\n  Fin Para\n  suma ← suma / n\n  Escribir \"Promedio: \", suma\nFin Función\n\nInicio\n  Llamar Promediar()\nFin",
+  codigo:'#include <stdio.h>\n\nvoid Promediar() {\n    int n; float suma = 0, d1;\n    for (n = 0; n < 6; n++) {\n        printf("Ingresa el dato %d: ", n);\n        scanf("%f", &d1);\n        suma = suma + d1;\n    }\n    suma = suma / n;\n    printf("Promedio: %.2f", suma);\n}\n\nint main() { Promediar(); return 0; }',
+  inputs:[{k:"a",label:"6 datos separados por comas:",ph:"ej. 10, 20, 30, 40, 50, 60",texto:1}],
+  run:"promFunc", ejemplo:"Promedio: 35.00",
+  aprendi:"Que una función void hace su trabajo completo sin devolver nada, y el truco de dividir entre n: al salir del ciclo, n vale 6, justo la cantidad de datos." },
+{ n:43, tema:7, titulo:"Factorial (la función imprime)", estructura:"Funciones sin retorno",
+  objetivo:"Calcular e imprimir el factorial de un número dentro de una función sin retorno.",
+  pseudo:"Función factorial()\n  Definir n, n2, f como entero\n  f ← 1\n  Escribir \"Número factorial: \"\n  Leer n2\n  Para n ← 1 hasta n2\n    f ← f * n\n  Fin Para\n  Escribir \"Resultado: \", f\nFin Función\n\nInicio\n  Llamar factorial()\nFin",
+  codigo:'#include <stdio.h>\n\nvoid factorial() {\n    int n, n2, f = 1;\n    printf("Numero factorial: ");\n    scanf("%d", &n2);\n    for (n = 1; n <= n2; n++) f = f * n;\n    printf("Resultado: %d", f);\n}\n\nint main() { factorial(); return 0; }',
+  inputs:[{k:"a",label:"Número factorial:",ph:"ej. 6",entero:1}],
+  run:"factFunc", ejemplo:"Número factorial: 6\nResultado: 720",
+  aprendi:"A reutilizar la lógica del factorial, ahora empaquetada en una función que el main solo manda llamar." },
+{ n:44, tema:7, titulo:"Menú matemático (la función imprime)", estructura:"Funciones sin retorno",
+  objetivo:"Construir una función con un menú switch de 4 operaciones de math.h: raíz cuadrada, potencia, logaritmo natural y coseno.",
+  pseudo:"Función Menú()\n  Definir n como entero, d1, d2, res como real\n  Escribir \"1. Raíz cuadrada, 2. Potencia, 3. Logaritmo natural, 4. Coseno\"\n  Leer n\n  Según n\n    Caso 1: Leer d1, res ← RaízCuadrada(d1)\n    Caso 2: Leer d1 y d2, res ← Potencia(d1, d2)\n    Caso 3: Leer d1, res ← LogaritmoNatural(d1)\n    Caso 4: Leer d1, res ← Coseno(d1)\n    Otro caso: Escribir \"Opción inválida...\"\n  Fin Según\n  Escribir \"Resultado: \", res\nFin Función\n\nInicio\n  Llamar Menú()\nFin",
+  codigo:'#include <stdio.h>\n#include <math.h>\n\nvoid Menu() {\n    int n; float d1, d2, res;\n    printf("1. Raiz cuadrada  2. Potencia  3. Logaritmo  4. Coseno\\n");\n    printf("Ingrese opcion: ");\n    scanf("%d", &n);\n    switch (n) {\n        case 1: printf("Ingrese numero: "); scanf("%f", &d1);\n                res = sqrt(d1); break;\n        case 2: printf("Base y exponente: "); scanf("%f %f", &d1, &d2);\n                res = pow(d1, d2); break;\n        case 3: printf("Ingrese dato: "); scanf("%f", &d1);\n                res = log(d1); break;\n        case 4: printf("Ingrese dato: "); scanf("%f", &d1);\n                res = cos(d1); break;\n        default: printf("Opcion invalida..."); return;\n    }\n    printf("Resultado: %.4f", res);\n}\n\nint main() { Menu(); return 0; }',
+  inputs:[{k:"a",label:"Opción (1 raíz, 2 potencia, 3 log, 4 coseno):",ph:"ej. 1",entero:1},{k:"b",label:"Dato 1:",ph:"ej. 25"},{k:"c",label:"Dato 2 (solo potencia: exponente):",ph:"ej. 2"}],
+  run:"menuMat", ejemplo:"Opción: 1 · Dato: 25\nResultado: 5.0000",
+  aprendi:"A combinar switch con las funciones de math.h, y la importancia del break: sin él, un caso se sigue al siguiente." },
+{ n:45, tema:7, titulo:"Suma y resta (con retorno)", estructura:"Funciones con retorno",
+  objetivo:"Crear funciones que devuelven un entero al main: suma() y resta(), elegidas desde un menú.",
+  pseudo:"Función suma() → entero\n  Leer n1, n2\n  Devolver n1 + n2\nFin Función\n\nFunción resta() → entero\n  Leer n1, n2\n  Devolver n1 - n2\nFin Función\n\nInicio\n  Escribir \"1) Suma, 2) Resta\"\n  Leer op\n  Si op = 1 Entonces\n    Escribir \"El resultado de la suma es \", suma()\n  SiNo, si op = 2 Entonces\n    Escribir \"El resultado de la resta es \", resta()\n  Fin Si\nFin",
+  codigo:'#include <stdio.h>\n\nint n1, n2;\n\nint suma()  { printf("Dame dos valores: "); scanf("%d %d", &n1, &n2); return n1 + n2; }\nint resta() { printf("Dame dos valores: "); scanf("%d %d", &n1, &n2); return n1 - n2; }\n\nint main() {\n    int op;\n    printf("1) Suma  2) Resta\\nElige: ");\n    scanf("%d", &op);\n    if (op == 1) printf("El resultado de la suma es %d", suma());\n    else if (op == 2) printf("El resultado de la resta es %d", resta());\n    return 0;\n}',
+  inputs:[{k:"a",label:"Opción (1 suma, 2 resta):",ph:"ej. 1",entero:1},{k:"b",label:"Primer valor:",ph:"ej. 15",entero:1},{k:"c",label:"Segundo valor:",ph:"ej. 6",entero:1}],
+  run:"sumaResta", ejemplo:"Opción: 1 · Valores: 15 y 6\nEl resultado de la suma es 21",
+  aprendi:"La diferencia entre imprimir dentro de la función y devolver el valor con return para que el main decida qué hacer con él. n1 y n2 son globales, por eso ambas funciones las comparten." },
+{ n:46, tema:7, titulo:"Promedio (con retorno)", estructura:"Funciones con retorno",
+  objetivo:"Repetir la práctica 42, pero ahora la función devuelve el promedio y el main es quien lo imprime.",
+  pseudo:"Función Promediar() → real\n  Definir n como entero, suma, d1 como real\n  suma ← 0\n  Para n ← 0 hasta 5\n    Leer d1\n    suma ← suma + d1\n  Fin Para\n  Devolver suma / n\nFin Función\n\nInicio\n  Definir promedio como real\n  promedio ← Promediar()\n  Escribir \"Promedio: \", promedio\nFin",
+  codigo:'#include <stdio.h>\n\nfloat Promediar() {\n    int n; float suma = 0, d1;\n    for (n = 0; n < 6; n++) {\n        printf("Ingresa el dato %d: ", n);\n        scanf("%f", &d1);\n        suma = suma + d1;\n    }\n    return suma / n;\n}\n\nint main() {\n    float promedio = Promediar();\n    printf("Promedio: %.2f", promedio);\n    return 0;\n}',
+  inputs:[{k:"a",label:"6 datos separados por comas:",ph:"ej. 10, 20, 30, 40, 50, 60",texto:1}],
+  run:"promFunc", ejemplo:"Promedio: 35.00",
+  aprendi:"Que con return la función se vuelve reutilizable: entrega el número y cualquier parte del programa puede usarlo." },
+{ n:47, tema:7, titulo:"Factorial (con retorno)", estructura:"Funciones con retorno",
+  objetivo:"Repetir la práctica 43 devolviendo el factorial al main en lugar de imprimirlo en la función.",
+  pseudo:"Función factorial() → entero\n  Definir n, n2, f como entero\n  f ← 1\n  Leer n2\n  Para n ← 1 hasta n2\n    f ← f * n\n  Fin Para\n  Devolver f\nFin Función\n\nInicio\n  Definir f como entero\n  f ← factorial()\n  Escribir \"Resultado: \", f\nFin",
+  codigo:'#include <stdio.h>\n\nint factorial() {\n    int n, n2, f = 1;\n    printf("Numero factorial: ");\n    scanf("%d", &n2);\n    for (n = 1; n <= n2; n++) f = f * n;\n    return f;\n}\n\nint main() {\n    int f = factorial();\n    printf("Resultado: %d", f);\n    return 0;\n}',
+  inputs:[{k:"a",label:"Número factorial:",ph:"ej. 6",entero:1}],
+  run:"factFunc", ejemplo:"Número factorial: 6\nResultado: 720",
+  aprendi:"Que el cálculo no cambia: lo que cambia es quién muestra el resultado, la función o el main." },
+{ n:48, tema:7, titulo:"Menú matemático (con retorno)", estructura:"Funciones con retorno",
+  objetivo:"Repetir el menú matemático de la práctica 44, devolviendo el resultado al main.",
+  pseudo:"Función Menú() → real\n  Definir n como entero, d1, d2, res como real\n  Leer n\n  Según n\n    Caso 1: Leer d1, res ← RaízCuadrada(d1)\n    Caso 2: Leer d1 y d2, res ← Potencia(d1, d2)\n    Caso 3: Leer d1, res ← LogaritmoNatural(d1)\n    Caso 4: Leer d1, res ← Coseno(d1)\n    Otro caso: Escribir \"Opción inválida...\"\n  Fin Según\n  Devolver res\nFin Función\n\nInicio\n  Definir res como real\n  res ← Menú()\n  Escribir \"Resultado: \", res\nFin",
+  codigo:'#include <stdio.h>\n#include <math.h>\n\nfloat Menu() {\n    int n; float d1, d2, res = 0;\n    printf("1. Raiz  2. Potencia  3. Logaritmo  4. Coseno\\n");\n    printf("Ingrese opcion: ");\n    scanf("%d", &n);\n    switch (n) {\n        case 1: scanf("%f", &d1); res = sqrt(d1); break;\n        case 2: scanf("%f %f", &d1, &d2); res = pow(d1, d2); break;\n        case 3: scanf("%f", &d1); res = log(d1); break;\n        case 4: scanf("%f", &d1); res = cos(d1); break;\n        default: printf("Opcion invalida...");\n    }\n    return res;\n}\n\nint main() {\n    float res = Menu();\n    printf("Resultado: %.4f", res);\n    return 0;\n}',
+  inputs:[{k:"a",label:"Opción (1 raíz, 2 potencia, 3 log, 4 coseno):",ph:"ej. 2",entero:1},{k:"b",label:"Dato 1:",ph:"ej. 3"},{k:"c",label:"Dato 2 (solo potencia: exponente):",ph:"ej. 4"}],
+  run:"menuMat", ejemplo:"Opción: 2 · Datos: 3 y 4\nResultado: 81.0000",
+  aprendi:"A declarar el tipo de retorno en la firma de la función (float Menu()) y a guardar el valor devuelto en una variable del main." },
+{ n:49, tema:7, titulo:"Suma y resta (con prototipos)", estructura:"Funciones con prototipos",
+  objetivo:"Repetir la práctica 45 declarando los prototipos de suma() y resta() antes del main y definiendo las funciones después.",
+  pseudo:"Prototipo: suma() → entero\nPrototipo: resta() → entero\n\nInicio\n  Escribir \"1) Suma, 2) Resta\"\n  Leer op\n  Si op = 1 Entonces\n    Escribir \"El resultado de la suma es \", suma()\n  SiNo, si op = 2 Entonces\n    Escribir \"El resultado de la resta es \", resta()\n  Fin Si\nFin\n\nFunción suma() → entero\n  Leer n1, n2\n  Devolver n1 + n2\nFin Función\n\nFunción resta() → entero\n  Leer n1, n2\n  Devolver n1 - n2\nFin Función",
+  codigo:'#include <stdio.h>\n\nint n1, n2;\nint suma();   /* prototipos */\nint resta();\n\nint main() {\n    int op;\n    printf("1) Suma  2) Resta\\nElige: ");\n    scanf("%d", &op);\n    if (op == 1) printf("El resultado de la suma es %d", suma());\n    else if (op == 2) printf("El resultado de la resta es %d", resta());\n    return 0;\n}\n\nint suma()  { printf("Dame dos valores: "); scanf("%d %d", &n1, &n2); return n1 + n2; }\nint resta() { printf("Dame dos valores: "); scanf("%d %d", &n1, &n2); return n1 - n2; }',
+  inputs:[{k:"a",label:"Opción (1 suma, 2 resta):",ph:"ej. 2",entero:1},{k:"b",label:"Primer valor:",ph:"ej. 15",entero:1},{k:"c",label:"Segundo valor:",ph:"ej. 6",entero:1}],
+  run:"sumaResta", ejemplo:"Opción: 2 · Valores: 15 y 6\nEl resultado de la resta es 9",
+  aprendi:"Para qué sirve el prototipo: avisa al compilador cómo es la función para poder llamarla antes de su definición." },
+{ n:50, tema:7, titulo:"Promedio (con prototipo)", estructura:"Funciones con prototipos",
+  objetivo:"Repetir la práctica 46 con el prototipo de Promediar() declarado antes del main.",
+  pseudo:"Prototipo: Promediar() → real\n\nInicio\n  Definir promedio como real\n  promedio ← Promediar()\n  Escribir \"Promedio: \", promedio\nFin\n\nFunción Promediar() → real\n  Definir n como entero, suma, d1 como real\n  suma ← 0\n  Para n ← 0 hasta 5\n    Leer d1\n    suma ← suma + d1\n  Fin Para\n  Devolver suma / n\nFin Función",
+  codigo:'#include <stdio.h>\n\nfloat Promediar();  /* prototipo */\n\nint main() {\n    float promedio = Promediar();\n    printf("Promedio: %.2f", promedio);\n    return 0;\n}\n\nfloat Promediar() {\n    int n; float suma = 0, d1;\n    for (n = 0; n < 6; n++) {\n        printf("Ingresa el dato %d: ", n);\n        scanf("%f", &d1);\n        suma = suma + d1;\n    }\n    return suma / n;\n}',
+  inputs:[{k:"a",label:"6 datos separados por comas:",ph:"ej. 70, 80, 90, 85, 95, 100",texto:1}],
+  run:"promFunc", ejemplo:"Promedio: 86.67",
+  aprendi:"Que con prototipos el orden de las funciones en el archivo ya no importa: el main puede ir primero." },
+{ n:51, tema:7, titulo:"Factorial (con prototipo)", estructura:"Funciones con prototipos",
+  objetivo:"Repetir la práctica 47 con el prototipo de factorial() declarado antes del main.",
+  pseudo:"Prototipo: factorial() → entero\n\nInicio\n  Definir f como entero\n  f ← factorial()\n  Escribir \"Resultado: \", f\nFin\n\nFunción factorial() → entero\n  Definir n, n2, f como entero\n  f ← 1\n  Leer n2\n  Para n ← 1 hasta n2\n    f ← f * n\n  Fin Para\n  Devolver f\nFin Función",
+  codigo:'#include <stdio.h>\n\nint factorial();  /* prototipo */\n\nint main() {\n    int f = factorial();\n    printf("Resultado: %d", f);\n    return 0;\n}\n\nint factorial() {\n    int n, n2, f = 1;\n    printf("Numero factorial: ");\n    scanf("%d", &n2);\n    for (n = 1; n <= n2; n++) f = f * n;\n    return f;\n}',
+  inputs:[{k:"a",label:"Número factorial:",ph:"ej. 7",entero:1}],
+  run:"factFunc", ejemplo:"Número factorial: 7\nResultado: 5040",
+  aprendi:"A separar la declaración de la función (prototipo, con punto y coma) de su definición (con el cuerpo entre llaves)." },
+{ n:52, tema:7, titulo:"Menú matemático (con prototipo)", estructura:"Funciones con prototipos",
+  objetivo:"Repetir el menú matemático de la práctica 48 con el prototipo de Menú() declarado antes del main.",
+  pseudo:"Prototipo: Menú() → real\n\nInicio\n  Definir res como real\n  res ← Menú()\n  Escribir \"Resultado: \", res\nFin\n\nFunción Menú() → real\n  Definir n como entero, d1, d2, res como real\n  Leer n\n  Según n\n    Caso 1: Leer d1, res ← RaízCuadrada(d1)\n    Caso 2: Leer d1 y d2, res ← Potencia(d1, d2)\n    Caso 3: Leer d1, res ← LogaritmoNatural(d1)\n    Caso 4: Leer d1, res ← Coseno(d1)\n    Otro caso: Escribir \"Opción inválida...\"\n  Fin Según\n  Devolver res\nFin Función",
+  codigo:'#include <stdio.h>\n#include <math.h>\n\nfloat Menu();  /* prototipo */\n\nint main() {\n    float res = Menu();\n    printf("Resultado: %.4f", res);\n    return 0;\n}\n\nfloat Menu() {\n    int n; float d1, d2, res = 0;\n    printf("1. Raiz  2. Potencia  3. Logaritmo  4. Coseno\\n");\n    printf("Ingrese opcion: ");\n    scanf("%d", &n);\n    switch (n) {\n        case 1: scanf("%f", &d1); res = sqrt(d1); break;\n        case 2: scanf("%f %f", &d1, &d2); res = pow(d1, d2); break;\n        case 3: scanf("%f", &d1); res = log(d1); break;\n        case 4: scanf("%f", &d1); res = cos(d1); break;\n        default: printf("Opcion invalida...");\n    }\n    return res;\n}',
+  inputs:[{k:"a",label:"Opción (1 raíz, 2 potencia, 3 log, 4 coseno):",ph:"ej. 1",entero:1},{k:"b",label:"Dato 1:",ph:"ej. 49"},{k:"c",label:"Dato 2 (solo potencia: exponente):",ph:"ej. 2"}],
+  run:"menuMat", ejemplo:"Opción: 1 · Dato: 49\nResultado: 7.0000",
+  aprendi:"El cierre del bloque de funciones: el mismo programa funciona en tres estilos —la función imprime, la función devuelve, y con prototipos— y cada estilo ordena el código de forma distinta." }
+);
+
+/* ============================================================
+   LÓGICA DE LAS TERMINALES — cada función reproduce la lógica
+   del código en C de su práctica.
+   ============================================================ */
+function f2(x){ return (Math.round(x*100)/100).toFixed(2); }
+function f4(x){ return (Math.round(x*10000)/10000).toFixed(4); }
+function fact(n){ var f=1, i; for(i=1;i<=n;i++) f*=i; return f; }
+function csvNums(s){ return String(s||"").split(",").map(function(x){ return parseFloat(x); }).filter(function(x){ return !isNaN(x); }); }
+function tabla(base, hasta){ var s="", i; for(i=1;i<=10;i++) s += base+" x "+i+" = "+(base*i)+"\n"; return s.replace(/\n$/,""); }
+function tablasHasta(n, nombre){
+  if(isNaN(n)) return "⚠️ Escribe hasta qué tabla quieres llegar.";
+  if(n<1||n>10) return "⚠️ Las tablas van del 1 al 10.";
+  var s="", t;
+  for(t=1;t<=n;t++){ s += "— Tabla del "+t+" —\n"+tabla(t)+"\n"; }
+  return s.replace(/\n$/,"");
+}
+function menuMatRun(v){
+  var op=v.a, d1=v.b, d2=v.c;
+  if(isNaN(op)) return "⚠️ Elige una opción del 1 al 4.";
+  var head="Menú: 1. Raíz cuadrada  2. Potencia  3. Logaritmo natural  4. Coseno\nOpción elegida: "+op+"\n";
+  if(op===1){ if(isNaN(d1)) return head+"⚠️ Falta el dato."; if(d1<0) return head+"No se puede sacar raíz de un negativo."; return head+"Dato: "+d1+"\nResultado: "+f4(Math.sqrt(d1)); }
+  if(op===2){ if(isNaN(d1)||isNaN(d2)) return head+"⚠️ Faltan la base o el exponente."; return head+"Base: "+d1+"  Exponente: "+d2+"\nResultado: "+f4(Math.pow(d1,d2)); }
+  if(op===3){ if(isNaN(d1)) return head+"⚠️ Falta el dato."; if(d1<=0) return head+"El logaritmo solo admite datos mayores que cero."; return head+"Dato: "+d1+"\nResultado: "+f4(Math.log(d1)); }
+  if(op===4){ if(isNaN(d1)) return head+"⚠️ Falta el dato."; return head+"Dato: "+d1+" (en radianes)\nResultado: "+f4(Math.cos(d1)); }
+  return head+"Opción inválida...";
+}
+
+var RUN = {
+  p1: function(v){ return "b * c = 60\nb + c - a = 17\nc % b = 2\n(a + b) * (c - b) = 35\n\n(Con a = 0, b = 5, c = 12, como en el código.)"; },
+  resta: function(v){ if(isNaN(v.a)||isNaN(v.b)) return "⚠️ Faltan datos: escribe los dos números."; return "Dame el primer número: "+v.a+"\nDame el segundo número: "+v.b+"\nLa resta es: "+f2(v.a-v.b); },
+  prom3: function(v){ if(isNaN(v.a)||isNaN(v.b)||isNaN(v.c)) return "⚠️ Faltan datos: escribe las 3 calificaciones."; return "Dame la calificación 1: "+v.a+"\nDame la calificación 2: "+v.b+"\nDame la calificación 3: "+v.c+"\nEl promedio es: "+f2((v.a+v.b+v.c)/3); },
+  cuadrado: function(v){ if(isNaN(v.a)) return "⚠️ Escribe el lado."; return "Dame el lado del cuadrado: "+v.a+"\nEl área es: "+f2(v.a*v.a); },
+  rectangulo: function(v){ if(isNaN(v.a)||isNaN(v.b)) return "⚠️ Escribe base y altura."; return "Dame la base: "+v.a+"\nDame la altura: "+v.b+"\nEl área es: "+f2(v.a*v.b); },
+  circulo: function(v){ if(isNaN(v.a)) return "⚠️ Escribe el radio."; return "Dame el radio del círculo: "+v.a+"\nEl área es: "+f2(3.1416*v.a*v.a); },
+  trapecio: function(v){ if(isNaN(v.a)||isNaN(v.b)||isNaN(v.c)) return "⚠️ Escribe base mayor, base menor y altura."; return "Dame la base mayor: "+v.a+"\nDame la base menor: "+v.b+"\nDame la altura: "+v.c+"\nEl área es: "+f2(((v.a+v.b)*v.c)/2); },
+  posneg: function(v){ if(isNaN(v.a)) return "⚠️ Escribe un número."; var r = v.a>0 ? "Es positivo" : (v.a<0 ? "Es negativo" : "Es cero"); return "Dame un número: "+v.a+"\n"+r; },
+  parimpar: function(v){ if(isNaN(v.a)) return "⚠️ Escribe un número entero."; return "Dame un número entero: "+v.a+"\n"+(v.a%2===0 ? "Es par" : "Es impar"); },
+  mayor2: function(v){ if(isNaN(v.a)||isNaN(v.b)) return "⚠️ Escribe los dos números."; return "Dame el primer número: "+v.a+"\nDame el segundo número: "+v.b+"\nEl mayor es: "+f2(Math.max(v.a,v.b)); },
+  mayor3: function(v){ if(isNaN(v.a)||isNaN(v.b)||isNaN(v.c)) return "⚠️ Escribe los tres números."; return "Primer número: "+v.a+"\nSegundo número: "+v.b+"\nTercer número: "+v.c+"\nEl mayor es: "+f2(Math.max(v.a,v.b,v.c)); },
+  aprobado: function(v){ if(isNaN(v.a)) return "⚠️ Escribe la calificación."; return "Dame la calificación: "+v.a+"\n"+(v.a>=70 ? "Aprobado" : "Reprobado"); },
+  menuops: function(v){ if(isNaN(v.a)||isNaN(v.b)||isNaN(v.c)) return "⚠️ Escribe los dos números y la opción."; var r; if(v.c===1) r=f2(v.a+v.b); else if(v.c===2) r=f2(v.a-v.b); else if(v.c===3) r=f2(v.a*v.b); else if(v.c===4) r=(v.b===0?"No se puede dividir entre cero":f2(v.a/v.b)); else return "Opción inválida"; return "Primer número: "+v.a+"\nSegundo número: "+v.b+"\nOpción: "+v.c+"\nResultado: "+r; },
+  menuconv: function(v){ if(isNaN(v.a)||isNaN(v.b)) return "⚠️ Escribe los metros y la opción."; var r; if(v.b===1) r=f2(v.a*100)+" cm"; else if(v.b===2) r=f2(v.a*39.3701)+" in"; else if(v.b===3) r=f2(v.a*3.28084)+" ft"; else return "Opción inválida"; return "Dame los metros: "+v.a+"\nOpción: "+v.b+"\n"+r; },
+  menuareas: function(v){ if(isNaN(v.a)||isNaN(v.b)) return "⚠️ Elige la figura y escribe la medida 1."; if(v.a===1) return "Figura: cuadrado\nLado: "+v.b+"\nÁrea: "+f2(v.b*v.b); if(v.a===2){ if(isNaN(v.c)) return "⚠️ Para el rectángulo también escribe la altura (medida 2)."; return "Figura: rectángulo\nBase: "+v.b+"  Altura: "+v.c+"\nÁrea: "+f2(v.b*v.c); } if(v.a===3) return "Figura: círculo\nRadio: "+v.b+"\nÁrea: "+f2(3.1416*v.b*v.b); return "Opción inválida"; },
+  mes: function(v){ var m=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]; if(isNaN(v.a)||v.a<1||v.a>12) return "Mes inválido: escribe un número del 1 al 12."; return "Número de mes: "+v.a+"\n"+m[v.a-1]; },
+  vocal: function(v){ var t=String(v.raw_a||"").trim(); if(!t) return "⚠️ Escribe una letra."; var ch=t.charAt(0); var es="aeiouAEIOU".indexOf(ch)>=0; return "Dame una letra: "+ch+"\n"+(es?"Es vocal":"Es consonante"); },
+  letra: function(v){ if(isNaN(v.a)||v.a<0||v.a>100) return "⚠️ Escribe una calificación entre 0 y 100."; var d=Math.floor(v.a/10), L = (d>=9)?"A":(d===8?"B":(d===7?"C":(d===6?"D":"F"))); return "Calificación: "+v.a+"\n"+L; },
+  dia: function(v){ var d=["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"]; if(isNaN(v.a)||v.a<1||v.a>7) return "Día inválido: escribe un número del 1 al 7."; return "Número de día: "+v.a+"\n"+d[v.a-1]; },
+  ordenar3: function(v){ if(isNaN(v.a)||isNaN(v.b)||isNaN(v.c)) return "⚠️ Escribe los tres números."; var s=[v.a,v.b,v.c].sort(function(x,y){return x-y;}); return "Primer número: "+v.a+"\nSegundo número: "+v.b+"\nTercer número: "+v.c+"\nOrdenados de menor a mayor: "+f2(s[0])+", "+f2(s[1])+", "+f2(s[2]); },
+  serieWhile: function(v){ if(isNaN(v.a)) return "⚠️ Escribe hasta qué número llega la serie."; if(v.a<1||v.a>200) return "⚠️ Escribe un número entre 1 y 200."; var s="", i; for(i=1;i<=v.a;i++) s+=i+" "; return "¿Hasta qué número? "+v.a+"\n"+s.trim(); },
+  impares105: function(v){ var s="", i; for(i=105;i>=1;i-=2) s+=i+" "; return s.trim(); },
+  potencia: function(v){ if(isNaN(v.a)||isNaN(v.b)) return "⚠️ Escribe base y exponente."; if(v.b<0||v.b>30) return "⚠️ Usa un exponente entre 0 y 30."; return "Dame la base: "+v.a+"\nDame el exponente: "+v.b+"\nResultado: "+Math.pow(v.a,v.b); },
+  factorialDW: function(v){ if(isNaN(v.a)) return "⚠️ Escribe un número."; if(v.a<0||v.a>15) return "⚠️ Usa un número entre 0 y 15 (el factorial crece muy rápido)."; return "Dame un número: "+v.a+"\nFactorial: "+fact(v.a); },
+  tabla7: function(v){ return tabla(7); },
+  sumaCero: function(v){ var nums=csvNums(v.raw_a); if(!nums.length) return "⚠️ Escribe los números separados por comas, terminando con 0."; var suma=0, usados=[], i, n; for(i=0;i<nums.length;i++){ n=nums[i]; suma+=n; usados.push(n); if(n===0) break; } var cerro = usados[usados.length-1]===0; return "Números capturados: "+usados.join(", ")+"\nSuma total: "+suma+(cerro?"":"\n(Ojo: en el programa real el ciclo no se detiene hasta capturar un 0.)"); },
+  tabla4: function(v){ return tabla(4); },
+  promFor: function(v){ var nums=csvNums(v.raw_a); if(!nums.length) return "⚠️ Escribe las calificaciones separadas por comas."; var s=0, i; for(i=0;i<nums.length;i++) s+=nums[i]; return "Calificaciones: "+nums.join(", ")+"\nCantidad: "+nums.length+"\nPromedio: "+f2(s/nums.length); },
+  tablaN: function(v){ if(isNaN(v.a)) return "⚠️ Escribe el número de la tabla."; return "Tabla del "+v.a+":\n"+tabla(v.a); },
+  paresImpares: function(v){ if(isNaN(v.a)||v.a<1||v.a>30) return "⚠️ Escribe un número entre 1 y 30."; var suma=0, prod=1, i; for(i=1;i<=v.a;i++){ if(i%2===0) suma+=i; else prod*=i; } return "Recorrido del 1 al "+v.a+":\nSuma de pares: "+suma+"\nProducto de impares: "+prod; },
+  tablasFor: function(v){ return tablasHasta(v.a); },
+  tablasWhile: function(v){ return tablasHasta(v.a); },
+  tablasDoWhile: function(v){ return tablasHasta(v.a); },
+  sumaArreglos: function(v){ var A=csvNums(v.raw_a), B=csvNums(v.raw_b); if(A.length!==5||B.length!==5) return "⚠️ Cada arreglo lleva 5 números separados por comas."; var s="", i; for(i=0;i<5;i++) s+=f2(A[i])+" + "+f2(B[i])+" = "+f2(A[i]+B[i])+"\n"; return s.replace(/\n$/,""); },
+  promArreglo: function(v){ var nums=csvNums(v.raw_a); if(nums.length!==10) return "⚠️ Escribe las 10 calificaciones separadas por comas (llevas "+nums.length+")."; var s=0, i; for(i=0;i<10;i++) s+=nums[i]; return "Calificaciones guardadas: "+nums.join(", ")+"\nPromedio: "+f2(s/10); },
+  recorrido: function(v){ var nums=csvNums(v.raw_a); if(nums.length!==8) return "⚠️ Escribe los 8 números separados por comas (llevas "+nums.length+")."; var inv=nums.slice().reverse(); return "En orden: "+nums.join(" ")+"\nAl revés: "+inv.join(" "); },
+  mayor15: function(v){ var nums=csvNums(v.raw_a); if(nums.length!==15) return "⚠️ Escribe los 15 números separados por comas (llevas "+nums.length+")."; return "Elementos: "+nums.join(", ")+"\nEste elemento es el mayor: "+Math.max.apply(null, nums); },
+  multArreglos: function(v){ var A=csvNums(v.raw_a), B=csvNums(v.raw_b); if(!A.length||A.length!==B.length) return "⚠️ Los dos arreglos deben traer la misma cantidad de números."; if(A.length>10) return "⚠️ Máximo 10 datos por arreglo."; var s="", i; for(i=0;i<A.length;i++) s+=f2(A[i])+" × "+f2(B[i])+" = "+f2(A[i]*B[i])+"\n"; return s.replace(/\n$/,""); },
+  mayusculas: function(v){ var t=String(v.raw_a||"").replace(/\s+/g,""); if(!t) return "⚠️ Escribe las letras."; t=t.substring(0,10); var out=t.toUpperCase().split("").join(" "); return "Letras capturadas: "+t.split("").join(" ")+"\nEn mayúsculas: "+out+(t.length<10?"\n(Ojo: el programa pide exactamente 10 letras.)":""); },
+  longitud: function(v){ var t=String(v.raw_a||""); if(!t) return "⚠️ Escribe una oración."; return "Oración: "+t+"\nLa longitud de la cadena es: "+t.length; },
+  colores: function(v){ return "Naranja\nAmarillo\nNaranja\nGris\nVerde\nAmarillo\nNaranja\nGris"; },
+  promFunc: function(v){ var nums=csvNums(v.raw_a); if(nums.length!==6) return "⚠️ La función pide exactamente 6 datos (llevas "+nums.length+")."; var s=0, i, lines=""; for(i=0;i<6;i++){ lines+="Ingresa el dato "+i+": "+nums[i]+"\n"; s+=nums[i]; } return lines+"Promedio: "+f2(s/6); },
+  factFunc: function(v){ if(isNaN(v.a)) return "⚠️ Escribe el número."; if(v.a<0||v.a>15) return "⚠️ Usa un número entre 0 y 15."; return "Número factorial: "+v.a+"\nResultado: "+fact(v.a); },
+  menuMat: function(v){ return menuMatRun(v); },
+  sumaResta: function(v){ if(isNaN(v.a)||isNaN(v.b)||isNaN(v.c)) return "⚠️ Elige la opción y escribe los dos valores."; if(v.a===1) return "Opción: 1) Suma\nValores: "+v.b+" y "+v.c+"\nEl resultado de la suma es "+(v.b+v.c); if(v.a===2) return "Opción: 2) Resta\nValores: "+v.b+" y "+v.c+"\nEl resultado de la resta es "+(v.b-v.c); return "Opción inválida"; }
+};
+
+/* ============================================================
+   SUBTEMAS — agrupación de las actividades dentro de cada tema.
+   Cada subtema muestra una sola vez su reporte general
+   (cerrado por defecto, bajo el encabezado «Reportes»)
+   y debajo sus actividades como menús desplegables.
+   ============================================================ */
+var SUBTEMAS = [
+  { tema:1, titulo:"Computadora y lenguajes", conceptos:["c11"] },
+  { tema:1, titulo:"Algoritmo", conceptos:["c12"] },
+  { tema:1, titulo:"Conversiones", conceptos:["c13"] },
+  { tema:1, titulo:"Programación estructurada", conceptos:["c14"] },
+  { tema:1, titulo:"Fases de la creación de un programa", conceptos:["c15"] },
+  { tema:2, titulo:"Antecedentes y definición del lenguaje C", conceptos:["c21"] },
+  { tema:2, titulo:"Tipos de datos en C", conceptos:["c22"] },
+  { tema:2, titulo:"Bibliotecas en C", conceptos:["c23"] },
+  { tema:2, titulo:"Expresiones", conceptos:["c24"] },
+  { tema:3, titulo:"Expresiones", practicas:[1] },
+  { tema:3, titulo:"Resta", practicas:[2] },
+  { tema:3, titulo:"Promedio de calificaciones", practicas:[3] },
+  { tema:3, titulo:"Áreas de figuras", practicas:[4,5,6,7] },
+  { tema:4, titulo:"Selectiva simple y doble", practicas:[8,9,10,11,12] },
+  { tema:4, titulo:"Selectiva múltiple", practicas:[13,14,15,16,17,18,19], conceptos:["c41"] },
+  { tema:4, titulo:"Selectiva anidada", practicas:[20] },
+  { tema:5, titulo:"while", practicas:[21,22,23] },
+  { tema:5, titulo:"do-while", practicas:[24,25,26] },
+  { tema:5, titulo:"for", practicas:[27,28,29,30] },
+  { tema:5, titulo:"Ciclos anidados", practicas:[31,32,33] },
+  { tema:5, titulo:"Contador, acumulador y bandera", conceptos:["c51"] },
+  { tema:6, titulo:"Arreglos", practicas:[34,35,36,37,38] },
+  { tema:6, titulo:"Cadenas", practicas:[39,40] },
+  { tema:7, titulo:"Funciones sin retorno de valor", practicas:[41,42,43,44] },
+  { tema:7, titulo:"Funciones con retorno de valor", practicas:[45,46,47,48] },
+  { tema:7, titulo:"Funciones con prototipos", practicas:[49,50,51,52] }
+];
+
+function practicaPorN(n){ var r=null; PRACTICAS.forEach(function(x){ if(x.n===n) r=x; }); return r; }
+function conceptoPorId(id){ var r=null; CONCEPTOS.forEach(function(x){ if(x.id===id) r=x; }); return r; }
+function itemsDeSubtema(st){
+  var items = [];
+  (st.conceptos||[]).forEach(function(id){ var c=conceptoPorId(id); if(c) items.push({tipo:"concepto", ref:c}); });
+  (st.practicas||[]).forEach(function(n){ var p=practicaPorN(n); if(p) items.push({tipo:"practica", ref:p}); });
+  return items;
+}
+function reporteDeSubtema(st){
+  var vistos = {}, files = [];
+  (st.practicas||[]).forEach(function(n){
+    var a = ARCHIVOS["p"+n] || {};
+    (a.reporte||[]).forEach(function(f){ if(!vistos[f.url]){ vistos[f.url]=1; files.push(f); } });
+  });
+  return files;
+}
+
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+/* ============================================================
+   ARCHIVOS ADJUNTOS (reportes, diagramas e investigaciones)
+   Los archivos van en la carpeta assets/ y se registran aquí;
+   la página los muestra incrustados, sin salir de ella.
+   Formato por práctica:  "p20": { reporte:[{nombre,url}], diagrama:[{nombre,url}] }
+   Formato por concepto:  "c11": { investigacion:[{nombre,url}] }
+   Ejemplo:
+   "p20": { reporte:[{ nombre:"Reporte — Práctica 20.pdf", url:"assets/reportes/reporte-20.pdf" }],
+            diagrama:[{ nombre:"Diagrama de flujo — Práctica 20.png", url:"assets/diagramas/diagrama-de-flujo-practica-20.png" }] }
+   "c14": { investigacion:[{ nombre:"Investigación — Programación estructurada.pdf", url:"assets/investigaciones/investigacion-programacion-estructurada.pdf" }] }
+   Carpetas del repositorio: assets/reportes/ (un PDF por práctica),
+   assets/diagramas/ (imagen o PDF por práctica) y
+   assets/investigaciones/ (un PDF por tema conceptual).
+   Todo archivo registrado aquí se muestra incrustado en la página,
+   con botones para abrirlo en pantalla completa o descargarlo.
+   ============================================================ */
+var ARCHIVOS = {
+  "c11": { investigacion:[{ nombre:"Investigación — Computadora y lenguajes de una computadora.pdf", url:"assets/investigaciones/investigacion-computadora-y-lenguajes-de-una-computadora.pdf" }] },
+  "c12": { investigacion:[{ nombre:"Práctica — Algoritmo.pdf", url:"assets/reportes/practica-algoritmo.pdf" }] },
+  "c13": { investigacion:[{ nombre:"Práctica — Conversiones.pdf", url:"assets/reportes/practica-conversiones.pdf" }] },
+  "c14": { investigacion:[{ nombre:"Investigación — Programación estructurada.pdf", url:"assets/investigaciones/investigacion-programacion-estructurada.pdf" }] },
+  "c15": { investigacion:[{ nombre:"Investigación — Fases de la creación de un programa.pdf", url:"assets/investigaciones/investigacion-fases-de-la-creacion-de-un-programa.pdf" }] },
+  "c21": { investigacion:[{ nombre:"Investigación — Antecedentes y definición de lenguaje C.pdf", url:"assets/investigaciones/investigacion-antecedentes-y-definicion-de-lenguaje-c.pdf" }] },
+  "c22": { investigacion:[{ nombre:"Investigación — Tipos de datos en lenguaje C.pdf", url:"assets/investigaciones/investigacion-tipos-de-datos-en-lenguaje-c.pdf" }] },
+  "c23": { investigacion:[{ nombre:"Investigación — Bibliotecas en lenguaje C (librerías).pdf", url:"assets/investigaciones/investigacion-bibliotecas-en-lenguaje-c-librerias.pdf" }] },
+  "c24": { investigacion:[{ nombre:"Práctica — Expresiones.pdf", url:"assets/reportes/practica-expresiones.pdf" }] },
+  "c41": { investigacion:[{ nombre:"Infografía — Estructura selectiva múltiple.pdf", url:"assets/investigaciones/infografia-estructura-selectiva-multiple.pdf" }] },
+  "c51": { investigacion:[{ nombre:"Investigación — Contador, acumulador y bandera.pdf", url:"assets/investigaciones/investigacion-contador-acumulador-y-bandera.pdf" }] },
+  "p1": { reporte:[{ nombre:"Reporte — Secuenciación, prácticas 1 a 7.pdf", url:"assets/reportes/reporte-secuenciacion-practicas-1-a-7.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 1.png", url:"assets/diagramas/diagrama-de-flujo-practica-1.png" }] },
+  "p2": { reporte:[{ nombre:"Reporte — Secuenciación, prácticas 1 a 7.pdf", url:"assets/reportes/reporte-secuenciacion-practicas-1-a-7.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 2.png", url:"assets/diagramas/diagrama-de-flujo-practica-2.png" }] },
+  "p3": { reporte:[{ nombre:"Reporte — Secuenciación, prácticas 1 a 7.pdf", url:"assets/reportes/reporte-secuenciacion-practicas-1-a-7.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 3.png", url:"assets/diagramas/diagrama-de-flujo-practica-3.png" }] },
+  "p4": { reporte:[{ nombre:"Reporte — Secuenciación, prácticas 1 a 7.pdf", url:"assets/reportes/reporte-secuenciacion-practicas-1-a-7.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 4.png", url:"assets/diagramas/diagrama-de-flujo-practica-4.png" }] },
+  "p5": { reporte:[{ nombre:"Reporte — Secuenciación, prácticas 1 a 7.pdf", url:"assets/reportes/reporte-secuenciacion-practicas-1-a-7.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 5.png", url:"assets/diagramas/diagrama-de-flujo-practica-5.png" }] },
+  "p6": { reporte:[{ nombre:"Reporte — Secuenciación, prácticas 1 a 7.pdf", url:"assets/reportes/reporte-secuenciacion-practicas-1-a-7.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 6.png", url:"assets/diagramas/diagrama-de-flujo-practica-6.png" }] },
+  "p7": { reporte:[{ nombre:"Reporte — Secuenciación, prácticas 1 a 7.pdf", url:"assets/reportes/reporte-secuenciacion-practicas-1-a-7.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 7.png", url:"assets/diagramas/diagrama-de-flujo-practica-7.png" }] },
+  "p8": { reporte:[{ nombre:"Reporte — Selectiva, prácticas 8 a 20.pdf", url:"assets/reportes/reporte-selectiva-practicas-8-a-20.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 8.png", url:"assets/diagramas/diagrama-de-flujo-practica-8.png" }] },
+  "p9": { reporte:[{ nombre:"Reporte — Selectiva, prácticas 8 a 20.pdf", url:"assets/reportes/reporte-selectiva-practicas-8-a-20.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 9.png", url:"assets/diagramas/diagrama-de-flujo-practica-9.png" }] },
+  "p10": { reporte:[{ nombre:"Reporte — Selectiva, prácticas 8 a 20.pdf", url:"assets/reportes/reporte-selectiva-practicas-8-a-20.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 10.png", url:"assets/diagramas/diagrama-de-flujo-practica-10.png" }] },
+  "p11": { reporte:[{ nombre:"Reporte — Selectiva, prácticas 8 a 20.pdf", url:"assets/reportes/reporte-selectiva-practicas-8-a-20.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 11.png", url:"assets/diagramas/diagrama-de-flujo-practica-11.png" }] },
+  "p12": { reporte:[{ nombre:"Reporte — Selectiva, prácticas 8 a 20.pdf", url:"assets/reportes/reporte-selectiva-practicas-8-a-20.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 12.png", url:"assets/diagramas/diagrama-de-flujo-practica-12.png" }] },
+  "p13": { reporte:[{ nombre:"Reporte — Selectiva, prácticas 8 a 20.pdf", url:"assets/reportes/reporte-selectiva-practicas-8-a-20.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 13.png", url:"assets/diagramas/diagrama-de-flujo-practica-13.png" }] },
+  "p14": { reporte:[{ nombre:"Reporte — Selectiva, prácticas 8 a 20.pdf", url:"assets/reportes/reporte-selectiva-practicas-8-a-20.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 14.png", url:"assets/diagramas/diagrama-de-flujo-practica-14.png" }] },
+  "p15": { reporte:[{ nombre:"Reporte — Selectiva, prácticas 8 a 20.pdf", url:"assets/reportes/reporte-selectiva-practicas-8-a-20.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 15.png", url:"assets/diagramas/diagrama-de-flujo-practica-15.png" }] },
+  "p16": { reporte:[{ nombre:"Reporte — Selectiva, prácticas 8 a 20.pdf", url:"assets/reportes/reporte-selectiva-practicas-8-a-20.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 16.png", url:"assets/diagramas/diagrama-de-flujo-practica-16.png" }] },
+  "p17": { reporte:[{ nombre:"Reporte — Selectiva, prácticas 8 a 20.pdf", url:"assets/reportes/reporte-selectiva-practicas-8-a-20.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 17.png", url:"assets/diagramas/diagrama-de-flujo-practica-17.png" }] },
+  "p18": { reporte:[{ nombre:"Reporte — Selectiva, prácticas 8 a 20.pdf", url:"assets/reportes/reporte-selectiva-practicas-8-a-20.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 18.png", url:"assets/diagramas/diagrama-de-flujo-practica-18.png" }] },
+  "p19": { reporte:[{ nombre:"Reporte — Selectiva, prácticas 8 a 20.pdf", url:"assets/reportes/reporte-selectiva-practicas-8-a-20.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 19.png", url:"assets/diagramas/diagrama-de-flujo-practica-19.png" }] },
+  "p20": { reporte:[{ nombre:"Reporte — Selectiva, prácticas 8 a 20.pdf", url:"assets/reportes/reporte-selectiva-practicas-8-a-20.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 20.png", url:"assets/diagramas/diagrama-de-flujo-practica-20.png" }] },
+  "p21": { reporte:[{ nombre:"Reporte — Repetición con while, prácticas 21 a 23.pdf", url:"assets/reportes/reporte-repeticion-con-while-practicas-21-a-23.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 21.png", url:"assets/diagramas/diagrama-de-flujo-practica-21.png" }] },
+  "p22": { reporte:[{ nombre:"Reporte — Repetición con while, prácticas 21 a 23.pdf", url:"assets/reportes/reporte-repeticion-con-while-practicas-21-a-23.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 22.png", url:"assets/diagramas/diagrama-de-flujo-practica-22.png" }] },
+  "p23": { reporte:[{ nombre:"Reporte — Repetición con while, prácticas 21 a 23.pdf", url:"assets/reportes/reporte-repeticion-con-while-practicas-21-a-23.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 23.png", url:"assets/diagramas/diagrama-de-flujo-practica-23.png" }] },
+  "p24": { reporte:[{ nombre:"Reporte — Repetición con do-while, prácticas 24 a 26.pdf", url:"assets/reportes/reporte-repeticion-con-do-while-practicas-24-a-26.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 24.png", url:"assets/diagramas/diagrama-de-flujo-practica-24.png" }] },
+  "p25": { reporte:[{ nombre:"Reporte — Repetición con do-while, prácticas 24 a 26.pdf", url:"assets/reportes/reporte-repeticion-con-do-while-practicas-24-a-26.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 25.png", url:"assets/diagramas/diagrama-de-flujo-practica-25.png" }] },
+  "p26": { reporte:[{ nombre:"Reporte — Repetición con do-while, prácticas 24 a 26.pdf", url:"assets/reportes/reporte-repeticion-con-do-while-practicas-24-a-26.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 26.png", url:"assets/diagramas/diagrama-de-flujo-practica-26.png" }] },
+  "p27": { reporte:[{ nombre:"Reporte — Repetición con for, prácticas 27 a 30.pdf", url:"assets/reportes/reporte-repeticion-con-for-practicas-27-a-30.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 27.png", url:"assets/diagramas/diagrama-de-flujo-practica-27.png" }] },
+  "p28": { reporte:[{ nombre:"Reporte — Repetición con for, prácticas 27 a 30.pdf", url:"assets/reportes/reporte-repeticion-con-for-practicas-27-a-30.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 28.png", url:"assets/diagramas/diagrama-de-flujo-practica-28.png" }] },
+  "p29": { reporte:[{ nombre:"Reporte — Repetición con for, prácticas 27 a 30.pdf", url:"assets/reportes/reporte-repeticion-con-for-practicas-27-a-30.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 29.png", url:"assets/diagramas/diagrama-de-flujo-practica-29.png" }] },
+  "p30": { reporte:[{ nombre:"Reporte — Repetición con for, prácticas 27 a 30.pdf", url:"assets/reportes/reporte-repeticion-con-for-practicas-27-a-30.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 30.png", url:"assets/diagramas/diagrama-de-flujo-practica-30.png" }] },
+  "p31": { reporte:[{ nombre:"Reporte — Ciclos anidados, prácticas 31 a 33.pdf", url:"assets/reportes/reporte-ciclos-anidados-practicas-31-a-33.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 31.png", url:"assets/diagramas/diagrama-de-flujo-practica-31.png" }] },
+  "p32": { reporte:[{ nombre:"Reporte — Ciclos anidados, prácticas 31 a 33.pdf", url:"assets/reportes/reporte-ciclos-anidados-practicas-31-a-33.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 32.png", url:"assets/diagramas/diagrama-de-flujo-practica-32.png" }] },
+  "p33": { reporte:[{ nombre:"Reporte — Ciclos anidados, prácticas 31 a 33.pdf", url:"assets/reportes/reporte-ciclos-anidados-practicas-31-a-33.pdf" }], diagrama:[{ nombre:"Diagrama de flujo — Práctica 33.png", url:"assets/diagramas/diagrama-de-flujo-practica-33.png" }] },
+  "p34": { reporte:[{ nombre:"Reporte — Arreglos unidimensionales, prácticas 34 a 38.pdf", url:"assets/reportes/reporte-arreglos-unidimensionales-practicas-34-a-38.pdf" }] },
+  "p35": { reporte:[{ nombre:"Reporte — Arreglos unidimensionales, prácticas 34 a 38.pdf", url:"assets/reportes/reporte-arreglos-unidimensionales-practicas-34-a-38.pdf" }] },
+  "p36": { reporte:[{ nombre:"Reporte — Arreglos unidimensionales, prácticas 34 a 38.pdf", url:"assets/reportes/reporte-arreglos-unidimensionales-practicas-34-a-38.pdf" }] },
+  "p37": { reporte:[{ nombre:"Reporte — Arreglos unidimensionales, prácticas 34 a 38.pdf", url:"assets/reportes/reporte-arreglos-unidimensionales-practicas-34-a-38.pdf" }] },
+  "p38": { reporte:[{ nombre:"Reporte — Arreglos unidimensionales, prácticas 34 a 38.pdf", url:"assets/reportes/reporte-arreglos-unidimensionales-practicas-34-a-38.pdf" }] },
+  "p39": { reporte:[{ nombre:"Reporte — Cadenas, prácticas 39 a 40.pdf", url:"assets/reportes/reporte-cadenas-practicas-39-a-40.pdf" }] },
+  "p40": { reporte:[{ nombre:"Reporte — Cadenas, prácticas 39 a 40.pdf", url:"assets/reportes/reporte-cadenas-practicas-39-a-40.pdf" }] },
+  "p41": { reporte:[{ nombre:"Reporte — Funciones sin retorno, prácticas 41 a 44.pdf", url:"assets/reportes/reporte-funciones-sin-retorno-practicas-41-a-44.pdf" }] },
+  "p42": { reporte:[{ nombre:"Reporte — Funciones sin retorno, prácticas 41 a 44.pdf", url:"assets/reportes/reporte-funciones-sin-retorno-practicas-41-a-44.pdf" }] },
+  "p43": { reporte:[{ nombre:"Reporte — Funciones sin retorno, prácticas 41 a 44.pdf", url:"assets/reportes/reporte-funciones-sin-retorno-practicas-41-a-44.pdf" }] },
+  "p44": { reporte:[{ nombre:"Reporte — Funciones sin retorno, prácticas 41 a 44.pdf", url:"assets/reportes/reporte-funciones-sin-retorno-practicas-41-a-44.pdf" }] },
+  "p45": { reporte:[{ nombre:"Reporte — Funciones con retorno, prácticas 45 a 48.pdf", url:"assets/reportes/reporte-funciones-con-retorno-practicas-45-a-48.pdf" }] },
+  "p46": { reporte:[{ nombre:"Reporte — Funciones con retorno, prácticas 45 a 48.pdf", url:"assets/reportes/reporte-funciones-con-retorno-practicas-45-a-48.pdf" }] },
+  "p47": { reporte:[{ nombre:"Reporte — Funciones con retorno, prácticas 45 a 48.pdf", url:"assets/reportes/reporte-funciones-con-retorno-practicas-45-a-48.pdf" }] },
+  "p48": { reporte:[{ nombre:"Reporte — Funciones con retorno, prácticas 45 a 48.pdf", url:"assets/reportes/reporte-funciones-con-retorno-practicas-45-a-48.pdf" }] },
+  "p49": { reporte:[{ nombre:"Reporte — Funciones con prototipos, prácticas 49 a 52.pdf", url:"assets/reportes/reporte-funciones-con-prototipos-practicas-49-a-52.pdf" }] },
+  "p50": { reporte:[{ nombre:"Reporte — Funciones con prototipos, prácticas 49 a 52.pdf", url:"assets/reportes/reporte-funciones-con-prototipos-practicas-49-a-52.pdf" }] },
+  "p51": { reporte:[{ nombre:"Reporte — Funciones con prototipos, prácticas 49 a 52.pdf", url:"assets/reportes/reporte-funciones-con-prototipos-practicas-49-a-52.pdf" }] },
+  "p52": { reporte:[{ nombre:"Reporte — Funciones con prototipos, prácticas 49 a 52.pdf", url:"assets/reportes/reporte-funciones-con-prototipos-practicas-49-a-52.pdf" }] }
+};
+
+var docSeq = 0;
+function esImagen(f){ return /\.(png|jpe?g|gif|webp)$/i.test(f.url||"") || (f.tipo||"").indexOf("image/")===0; }
+function esPdf(f){ return /\.pdf$/i.test(f.url||"") || f.tipo==="application/pdf"; }
+
+function visorHTML(f){
+  docSeq++;
+  var idv = "docview-"+docSeq;
+  var media;
+  if(esImagen(f)) media = '<img src="'+f.url+'" alt="'+esc(f.nombre)+'" loading="lazy" />';
+  else if(esPdf(f)) media = '<iframe src="'+f.url+'" title="'+esc(f.nombre)+'"></iframe>';
+  else media = '<p class="doc-empty">Este tipo de archivo no se puede previsualizar aquí; ábrelo con el botón Abrir.</p>';
+  return '<div class="doc-file">'
+    + '<span class="doc-name">'+esc(f.nombre)+'</span>'
+    + '<button type="button" class="ghostbtn doc-toggle" data-target="'+idv+'">Ocultar</button>'
+    + '<a class="ghostbtn doc-open" href="'+f.url+'" target="_blank" rel="noopener">Abrir</a>'
+    + '<a class="ghostbtn doc-open" href="'+f.url+'" download>Descargar</a>'
+    + '</div><div class="doc-viewer" id="'+idv+'">'+media+'</div>';
+}
+
+function slotHTML(key, kind, label, files){
+  var html = '<div class="doc-slot"><h5>'+esc(label)+'</h5>';
+  if(files && files.length){
+    files.forEach(function(f){ html += visorHTML(f); });
+  } else {
+    html += '<p class="doc-empty">Todavía no hay archivo adjunto aquí.</p>';
+  }
+  html += '<div id="prev-'+key+'-'+kind+'"></div>'
+    + '<div class="attach-row"><label class="ghostbtn attach-label">Probar un archivo aquí'
+    + '<input type="file" data-attach="'+key+':'+kind+'" accept=".pdf,image/*" multiple hidden />'
+    + '</label><span class="doc-hint">Vista previa solo en esta sesión. El archivo definitivo va en la carpeta assets/ del repositorio y se registra en la lista ARCHIVOS del código.</span></div>'
+    + '</div>';
+  return html;
+}
+
+/* Reporte general del subtema: cerrado por defecto.
+   Se ve solo el encabezado «Reportes»; al abrirlo aparece
+   el documento incrustado, igual que antes. */
+function reporteColapsadoHTML(key, kind, label, files, titulo){
+  var chev = '<svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var n = (files && files.length) ? files.length : 0;
+  var cuenta = n ? (n + (n===1 ? ' documento' : ' documentos')) : 'Sin documento todavía';
+  return '<details class="reportes-box">'
+    + '<summary class="reportes-summary"><span class="reportes-label">Reportes</span>'
+    + '<span class="reportes-title">'+esc(titulo)+'</span>'
+    + '<span class="reportes-count">'+cuenta+'</span>'+chev+'</summary>'
+    + '<div class="reportes-body">'+slotHTML(key, kind, label, files)+'</div>'
+    + '</details>';
+}
+
+function docsConceptoHTML(c){
+  var a = ARCHIVOS[c.id] || {};
+  return '<div class="card"><h4>Documento de la investigación</h4>'
+    + slotHTML(c.id, "investigacion", "Investigación", a.investigacion)
+    + '</div>';
+}
+
+/* Contenido completo de una actividad desplegable: objetivo,
+   pseudocódigo, diagrama de flujo, código en C y terminal.
+   El reporte NO va aquí: va una sola vez en su subtema. */
+function detallePracticaHTML(p){
+  var a = ARCHIVOS["p"+p.n] || {};
+  return '<div class="card"><h4>Objetivo</h4><p>'+esc(p.objetivo)+'</p></div>'
+    + '<div class="card"><h4>Documentos de la práctica</h4>'
+    + slotHTML("p"+p.n, "diagrama", "Diagrama de flujo", a.diagrama)
+    + '</div>'
+    + '<div class="card"><h4>Pseudocódigo</h4><pre class="code">'+esc(p.pseudo)+'</pre></div>'
+    + '<div class="card"><h4>Código en C</h4><pre class="code" id="codigo-p'+p.n+'">'+esc(p.codigo)+'</pre>'
+    + '<button type="button" class="ghostbtn copybtn" data-copy="codigo-p'+p.n+'">Copiar código</button><span class="copied"></span></div>'
+    + '<div class="card"><h4>Terminal interactiva — pruébala</h4>'
+    + '<p style="color:var(--muted);font-size:14px;margin-top:0;">Escribe los datos como si corrieras el programa y pulsa <strong>Correr</strong>. La terminal hace exactamente lo que hace el código de arriba.</p>'
+    + '<div class="terminal"><div class="term-head"><span></span><span></span><span></span></div>'
+    + terminalInputs(p)
+    + '<div class="trow"><button type="button" class="runbtn" data-run="'+p.n+'">▶ Correr</button><button type="button" class="clearbtn" data-clear="'+p.n+'">Limpiar</button></div>'
+    + '<div class="tout" id="tout-p'+p.n+'"></div></div></div>'
+    + '<div class="card"><h4>Resultado</h4><pre class="code">'+esc(p.ejemplo)+'</pre></div>'
+    + '<div class="card"><h4>Qué aprendí</h4><p>'+esc(p.aprendi)+'</p></div>';
+}
+
+function detalleConceptoHTML(c){
+  var html = '<div class="card"><h4>Objetivo</h4><p>'+esc(c.objetivo)+'</p></div>'
+    + '<div class="card"><h4>Contenido</h4>'+c.body+'</div>';
+  if(c.widget==="conversiones") html += widgetConversiones();
+  if(c.widget==="expresiones") html += widgetExpresiones();
+  return html;
+}
+
+function wireToggles(scope){
+  var btns = scope.querySelectorAll(".doc-toggle");
+  for(var i=0;i<btns.length;i++){
+    if(btns[i].getAttribute("data-wired")) continue;
+    btns[i].setAttribute("data-wired","1");
+    btns[i].addEventListener("click", function(){
+      var v = document.getElementById(this.getAttribute("data-target"));
+      if(v){ v.hidden = !v.hidden; this.textContent = v.hidden ? "Ver aquí" : "Ocultar"; }
+    });
+  }
+}
+
+function wireAttach(){
+  wireToggles(document);
+  var inputs = document.querySelectorAll("input[data-attach]");
+  for(var i=0;i<inputs.length;i++){
+    inputs[i].addEventListener("change", function(){
+      var parts = this.getAttribute("data-attach").split(":");
+      var host = document.getElementById("prev-"+parts[0]+"-"+parts[1]);
+      if(!host) return;
+      for(var j=0;j<this.files.length;j++){
+        var f = this.files[j];
+        var div = document.createElement("div");
+        div.innerHTML = visorHTML({ nombre:f.name, url:URL.createObjectURL(f), tipo:f.type });
+        host.appendChild(div);
+      }
+      wireToggles(host);
+      this.value = "";
+    });
+  }
+}
+
+function buildIndex(){
+  var host = document.getElementById("themes");
+  var chev = '<svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var html = "";
+  THEMES.forEach(function(t){
+    var subs = SUBTEMAS.filter(function(s){ return s.tema===t.n; });
+    var totalAct = 0;
+    subs.forEach(function(s){ totalAct += itemsDeSubtema(s).length; });
+    html += '<section class="theme" data-theme="'+t.n+'">'
+      + '<div class="theme-head"><span class="theme-num">0'+t.n+'</span>'
+      + '<div><h3>'+esc(t.titulo)+'</h3><p>'+esc(t.desc)+'</p></div>'
+      + '<span class="theme-count">'+subs.length+' subtemas · '+totalAct+' actividades</span></div>';
+    subs.forEach(function(st, si){
+      var items = itemsDeSubtema(st);
+      var titular = (!st.practicas && st.conceptos && st.conceptos.length) ? conceptoPorId(st.conceptos[0]) : null;
+      html += '<div class="subtema">'
+        + '<div class="subtema-head"><span class="subtema-num">'+t.n+'.'+(si+1)+'</span><h4>'+esc(st.titulo)+'</h4>'
+        + '<span class="subtema-count">'+items.length+(items.length===1 ? ' actividad' : ' actividades')+'</span></div>'
+        + '<div class="panel">';
+      if(titular){
+        var at = ARCHIVOS[titular.id] || {};
+        html += reporteColapsadoHTML(titular.id, "investigacion", "Investigación", at.investigacion, "Investigación del subtema");
+      } else {
+        html += reporteColapsadoHTML("st"+t.n+"-"+si, "reporte", "Reporte general del subtema", reporteDeSubtema(st), "Reporte general del subtema");
+      }
+      items.forEach(function(o){
+        if(o.tipo==="concepto"){
+          var c = o.ref;
+          var cuerpo = detalleConceptoHTML(c);
+          if(!titular || titular.id!==c.id) cuerpo += docsConceptoHTML(c);
+          html += '<details class="act" data-open="c:'+c.id+'" data-search="'+esc(normTxt(c.num+" "+c.titulo+" "+st.titulo+" "+t.titulo+" investigación documento pdf"))+'">'
+            + '<summary class="row"><span class="rnum">'+esc(c.num)+'</span><span class="rtitle">'+esc(c.titulo)+'</span>'
+            + '<span class="rtag">'+esc(c.tag)+'</span>'+chev+'</summary>'
+            + '<div class="act-body">'+cuerpo+'</div></details>';
+        } else {
+          var p = o.ref;
+          html += '<details class="act" data-open="p:'+p.n+'" data-search="'+esc(normTxt("práctica "+p.n+" "+p.titulo+" "+p.estructura+" "+st.titulo+" "+t.titulo+" reporte diagrama documento pdf"))+'">'
+            + '<summary class="row"><span class="rnum">'+p.n+'</span><span class="rtitle">'+esc(p.titulo)+'</span>'
+            + '<span class="rtag">'+esc(p.estructura)+'</span>'+chev+'</summary>'
+            + '<div class="act-body">'+detallePracticaHTML(p)+'</div></details>';
+        }
+      });
+      html += '</div></div>';
+    });
+    html += '</section>';
+  });
+  host.innerHTML = html;
+}
+
+/* ============================================================
+   ÍNDICE DE DOCUMENTOS — reportes, diagramas e investigaciones
+   con su estado (adjunto / pendiente), enlazando a cada detalle,
+   donde el archivo se ve incrustado.
+   ============================================================ */
+function buildDocsIndex(){
+  var host = document.getElementById("docs-index");
+  if(!host) return;
+  function chip(ok){ return '<span class="doc-chip'+(ok?' ok':'')+'">'+(ok?'Adjunto':'Pendiente')+'</span>'; }
+  function fila(key, num, titulo, ok){
+    return '<button type="button" class="row" data-docopen="'+key+'">'
+      + '<span class="rnum">'+esc(num)+'</span><span class="rtitle">'+esc(titulo)+'</span>'
+      + chip(ok)
+      + '<svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
+  }
+  var invOk = 0, repOk = 0, diaOk = 0;
+  var invRows = "", repRows = "", diaRows = "";
+  CONCEPTOS.forEach(function(c){
+    var a = ARCHIVOS[c.id] || {};
+    var ok = !!(a.investigacion && a.investigacion.length);
+    if(ok) invOk++;
+    invRows += fila("c:"+c.id, c.num, c.titulo, ok);
+  });
+  PRACTICAS.forEach(function(p){
+    var a = ARCHIVOS["p"+p.n] || {};
+    var okR = !!(a.reporte && a.reporte.length);
+    var okD = !!(a.diagrama && a.diagrama.length);
+    if(okR) repOk++;
+    if(okD) diaOk++;
+    repRows += fila("p:"+p.n, p.n, p.titulo, okR);
+    diaRows += fila("p:"+p.n, p.n, p.titulo, okD);
+  });
+  host.innerHTML = '<div class="index-head"><p class="kicker">Documentos</p>'
+    + '<h2>Reportes e investigaciones, dentro de la página.</h2></div>'
+    + '<p class="docs-lede">Abre cualquier práctica o investigación y su documento aparece incrustado en esa misma página: la profesora lo lee sin salir del portafolio, y puede abrirlo en pantalla completa o descargarlo.</p>'
+    + '<details class="panel doc-group"><summary>Investigaciones · '+invOk+' de '+CONCEPTOS.length+' con documento</summary>'+invRows+'</details>'
+    + '<details class="panel doc-group"><summary>Reportes de prácticas · '+repOk+' de '+PRACTICAS.length+' con documento</summary>'+repRows+'</details>'
+    + '<details class="panel doc-group"><summary>Diagramas de flujo · '+diaOk+' de 33 con documento</summary>'+diaRows+'</details>';
+  var rows = host.querySelectorAll("[data-docopen]");
+  for(var i=0;i<rows.length;i++){
+    rows[i].addEventListener("click", function(){ openDetail(this.getAttribute("data-docopen")); });
+  }
+}
+
+/* ============================================================
+   ACTIVIDADES DESPLEGABLES — abrir una actividad desde el
+   índice de documentos: se despliega en su subtema y la
+   página se desplaza hasta ella.
+   ============================================================ */
+function openDetail(key){
+  var el = document.querySelector('.act[data-open="'+key+'"]');
+  if(!el) return;
+  el.open = true;
+  el.scrollIntoView({ block:"start", behavior:"smooth" });
+}
+
+function terminalInputs(p){
+  if(!p.inputs.length) return '<p style="color:var(--term-green);font-size:14px;margin:4px 0 10px;">Este programa no pide datos: solo pulsa Correr.</p>';
+  var html = "";
+  p.inputs.forEach(function(inp){
+    var id = "tin-p"+p.n+"-"+inp.k;
+    html += '<div class="trow"><label for="'+id+'">'+esc(inp.label)+'</label>'
+      + '<input id="'+id+'" data-k="'+inp.k+'" type="'+(inp.texto?"text":"number")+'" '+(inp.texto?"":'step="any" ')+'placeholder="'+esc(inp.ph||"")+'" /></div>';
+  });
+  return html;
+}
+
+/* Conecta los botones de todas las actividades desplegables:
+   copiar código, correr y limpiar cada terminal, y el
+   convertidor del subtema Conversiones. */
+function wireActividades(){
+  var copies = document.querySelectorAll(".copybtn");
+  for(var i=0;i<copies.length;i++){
+    copies[i].addEventListener("click", function(){
+      var pre = document.getElementById(this.getAttribute("data-copy"));
+      var msg = this.parentNode ? this.parentNode.querySelector(".copied") : null;
+      if(pre && navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(pre.innerText).then(function(){ if(msg) msg.textContent = "Código copiado."; });
+      }
+    });
+  }
+  var runs = document.querySelectorAll("[data-run]");
+  for(var j=0;j<runs.length;j++){
+    runs[j].addEventListener("click", function(){
+      var p = practicaPorN(parseInt(this.getAttribute("data-run"),10));
+      if(!p) return;
+      var v = {};
+      p.inputs.forEach(function(inp){
+        var el = document.getElementById("tin-p"+p.n+"-"+inp.k);
+        var raw = el ? el.value : "";
+        v["raw_"+inp.k] = raw;
+        v[inp.k] = inp.texto ? raw : parseFloat(raw);
+        if(inp.entero && !inp.texto) v[inp.k] = parseInt(raw,10);
+      });
+      var fn = RUN[p.run];
+      document.getElementById("tout-p"+p.n).textContent = fn ? fn(v) : "Terminal no disponible.";
+    });
+  }
+  var clears = document.querySelectorAll("[data-clear]");
+  for(var k=0;k<clears.length;k++){
+    clears[k].addEventListener("click", function(){
+      var p = practicaPorN(parseInt(this.getAttribute("data-clear"),10));
+      if(!p) return;
+      p.inputs.forEach(function(inp){ var el=document.getElementById("tin-p"+p.n+"-"+inp.k); if(el) el.value=""; });
+      document.getElementById("tout-p"+p.n).textContent = "";
+    });
+  }
+  var cb = document.getElementById("conv-btn");
+  if(cb) cb.addEventListener("click", correrConversion);
+  var cc = document.getElementById("conv-clear");
+  if(cc) cc.addEventListener("click", function(){ document.getElementById("conv-in").value=""; document.getElementById("conv-out").textContent=""; });
+}
+
+/* ---------- Widgets conceptuales ---------- */
+function widgetConversiones(){
+  return '<div class="card"><h4>Convertidor — pruébalo</h4>'
+    + '<div class="terminal"><div class="term-head"><span></span><span></span><span></span></div>'
+    + '<div class="trow"><label for="conv-in">Número decimal:</label><input id="conv-in" type="number" step="1" placeholder="ej. 255" /></div>'
+    + '<div class="trow"><button type="button" class="runbtn" id="conv-btn">Convertir</button><button type="button" class="clearbtn" id="conv-clear">Limpiar</button></div>'
+    + '<div class="tout" id="conv-out"></div></div></div>';
+}
+function correrConversion(){
+  var el = document.getElementById("conv-in");
+  var n = parseInt(el.value,10);
+  var out = document.getElementById("conv-out");
+  if(isNaN(n)){ out.textContent = "⚠️ Escribe un número decimal entero."; return; }
+  if(n<0){ out.textContent = "⚠️ Por ahora convierte solo números positivos."; return; }
+  out.textContent = "Decimal:      "+n+"\nBinario:      "+n.toString(2)+"\nOctal:        "+n.toString(8)+"\nHexadecimal:  "+n.toString(16).toUpperCase();
+}
+function widgetExpresiones(){
+  return '<div class="card"><h4>Evaluación paso a paso (a = 0, b = 5, c = 12)</h4>'
+    + '<table><tr><th>Expresión</th><th>Sustitución</th><th>Resultado</th></tr>'
+    + '<tr><td>b * c</td><td>5 * 12</td><td>60</td></tr>'
+    + '<tr><td>b + c − a</td><td>5 + 12 − 0</td><td>17</td></tr>'
+    + '<tr><td>c % b</td><td>residuo de 12 ÷ 5</td><td>2</td></tr>'
+    + '<tr><td>c / b</td><td>12 / 5 en enteros</td><td>2</td></tr>'
+    + '<tr><td>(a + b) * (c − b)</td><td>(0 + 5) * (12 − 5) = 5 * 7</td><td>35</td></tr></table>'
+    + '<p>La fila de <strong>c / b</strong> muestra la trampa clásica: entre enteros, C descarta los decimales y el resultado es 2, no 2.4.</p></div>';
+}
+
+/* ---------- Buscador ---------- */
+/* Normaliza texto para buscar: minúsculas y sin acentos, para que
+   «area», «Área» y «AREA» encuentren lo mismo. */
+function normTxt(s){
+  return String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim();
+}
+function wireSearch(){
+  var q = document.getElementById("q");
+  var noresults = document.getElementById("noresults");
+  var count = document.getElementById("searchcount");
+  var docsIndex = document.getElementById("docs-index");
+  q.addEventListener("input", function(){
+    var tokens = normTxt(q.value).split(" ").filter(function(t){ return t.length>0; });
+    var searching = tokens.length>0;
+    /* Un token numérico debe coincidir como número completo, para que
+       buscar «7» no arrastre a la práctica 27 ni «20» a la 120. */
+    var testers = tokens.map(function(tok){
+      if(/^\d+$/.test(tok)){
+        var re = new RegExp("(^|[^0-9])"+tok+"([^0-9]|$)");
+        return function(hay){ return re.test(hay); };
+      }
+      return function(hay){ return hay.indexOf(tok)>=0; };
+    });
+    var matches = 0;
+    var acts = document.querySelectorAll(".act[data-open]");
+    for(var i=0;i<acts.length;i++){
+      var hay = acts[i].getAttribute("data-search") || "";
+      var show = true;
+      if(searching){
+        for(var t=0;t<testers.length;t++){
+          if(!testers[t](hay)){ show = false; break; }
+        }
+      }
+      acts[i].style.display = show ? "" : "none";
+      /* Al buscar, la actividad que coincide se abre sola para que se
+         vea el resultado; al borrar la búsqueda todo vuelve a cerrado. */
+      acts[i].open = searching && show;
+      if(show) matches++;
+    }
+    var subs = document.querySelectorAll(".subtema");
+    for(var j=0;j<subs.length;j++){
+      var subActs = subs[j].querySelectorAll(".act");
+      var anySub = false;
+      for(var m=0;m<subActs.length;m++){
+        if(subActs[m].style.display!=="none"){ anySub = true; break; }
+      }
+      subs[j].style.display = (!searching || anySub) ? "" : "none";
+    }
+    var sections = document.querySelectorAll(".theme");
+    for(var k=0;k<sections.length;k++){
+      var themeSubs = sections[k].querySelectorAll(".subtema");
+      var anyTheme = false;
+      for(var n=0;n<themeSubs.length;n++){
+        if(themeSubs[n].style.display!=="none"){ anyTheme = true; break; }
+      }
+      sections[k].style.display = (!searching || anyTheme) ? "" : "none";
+    }
+    /* Mientras se busca, el índice de documentos se oculta para que los
+       resultados queden justo debajo del buscador. */
+    if(docsIndex) docsIndex.style.display = searching ? "none" : "";
+    noresults.style.display = (searching && matches===0) ? "block" : "none";
+    if(count){
+      count.style.display = searching ? "block" : "none";
+      count.textContent = matches===0 ? "" : (matches===1
+        ? "1 actividad coincide con tu búsqueda."
+        : matches+" actividades coinciden con tu búsqueda.");
+    }
+  });
+}
+
+buildIndex();
+buildDocsIndex();
+wireActividades();
+wireAttach();
+wireSearch();
+</script>
+</body>
+</html>
