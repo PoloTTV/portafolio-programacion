@@ -360,7 +360,7 @@
         <ul>
           <li><strong>Temas y subtemas:</strong> el curso está organizado en 7 temas; cada tema se divide en subtemas y cada subtema agrupa sus actividades en orden.</li>
           <li><strong>Reportes:</strong> el reporte general de cada subtema está bajo el encabezado <strong>Reportes</strong>, cerrado al entrar; tócalo para abrirlo y leer el documento sin salir de la página.</li>
-          <li><strong>Actividades desplegables:</strong> toca cualquier actividad para ver su objetivo, pseudocódigo, diagrama de flujo, código en C y una terminal interactiva para correrla aquí mismo.</li>
+          <li><strong>Actividades desplegables:</strong> toca cualquier actividad para ver su objetivo, pseudocódigo, código en C y una terminal interactiva para correrla aquí mismo. Las prácticas 1 a 33 incluyen además su diagrama de flujo.</li>
           <li><strong>Buscador:</strong> escribe el número o el nombre de una práctica (por ejemplo, «factorial» o «práctica 20») para encontrarla al instante.</li>
         </ul>
       </div>
@@ -1144,11 +1144,7 @@ function slotHTML(key, kind, label, files){
   } else {
     html += '<p class="doc-empty">Todavía no hay archivo adjunto aquí.</p>';
   }
-  html += '<div id="prev-'+key+'-'+kind+'"></div>'
-    + '<div class="attach-row"><label class="ghostbtn attach-label">Probar un archivo aquí'
-    + '<input type="file" data-attach="'+key+':'+kind+'" accept=".pdf,image/*" multiple hidden />'
-    + '</label><span class="doc-hint">Vista previa solo en esta sesión. El archivo definitivo va en la carpeta assets/ del repositorio y se registra en la lista ARCHIVOS del código.</span></div>'
-    + '</div>';
+  html += '</div>';
   return html;
 }
 
@@ -1179,10 +1175,13 @@ function docsConceptoHTML(c){
    El reporte NO va aquí: va una sola vez en su subtema. */
 function detallePracticaHTML(p){
   var a = ARCHIVOS["p"+p.n] || {};
+  var diagramaCard = (a.diagrama && a.diagrama.length)
+    ? '<div class="card"><h4>Documentos de la práctica</h4>'
+      + slotHTML("p"+p.n, "diagrama", "Diagrama de flujo", a.diagrama)
+      + '</div>'
+    : '';
   return '<div class="card"><h4>Objetivo</h4><p>'+esc(p.objetivo)+'</p></div>'
-    + '<div class="card"><h4>Documentos de la práctica</h4>'
-    + slotHTML("p"+p.n, "diagrama", "Diagrama de flujo", a.diagrama)
-    + '</div>'
+    + diagramaCard
     + '<div class="card"><h4>Pseudocódigo</h4><pre class="code">'+esc(p.pseudo)+'</pre></div>'
     + '<div class="card"><h4>Código en C</h4><pre class="code" id="codigo-p'+p.n+'">'+esc(p.codigo)+'</pre>'
     + '<button type="button" class="ghostbtn copybtn" data-copy="codigo-p'+p.n+'">Copiar código</button><span class="copied"></span></div>'
@@ -1218,22 +1217,6 @@ function wireToggles(scope){
 
 function wireAttach(){
   wireToggles(document);
-  var inputs = document.querySelectorAll("input[data-attach]");
-  for(var i=0;i<inputs.length;i++){
-    inputs[i].addEventListener("change", function(){
-      var parts = this.getAttribute("data-attach").split(":");
-      var host = document.getElementById("prev-"+parts[0]+"-"+parts[1]);
-      if(!host) return;
-      for(var j=0;j<this.files.length;j++){
-        var f = this.files[j];
-        var div = document.createElement("div");
-        div.innerHTML = visorHTML({ nombre:f.name, url:URL.createObjectURL(f), tipo:f.type });
-        host.appendChild(div);
-      }
-      wireToggles(host);
-      this.value = "";
-    });
-  }
 }
 
 function buildIndex(){
@@ -1272,7 +1255,8 @@ function buildIndex(){
             + '<div class="act-body">'+cuerpo+'</div></details>';
         } else {
           var p = o.ref;
-          html += '<details class="act" data-open="p:'+p.n+'" data-search="'+esc(normTxt("práctica "+p.n+" "+p.titulo+" "+p.estructura+" "+st.titulo+" "+t.titulo+" reporte diagrama documento pdf"))+'">'
+          var extraDia = (p.n <= 33) ? " diagrama" : "";
+          html += '<details class="act" data-open="p:'+p.n+'" data-search="'+esc(normTxt("práctica "+p.n+" "+p.titulo+" "+p.estructura+" "+st.titulo+" "+t.titulo+" reporte"+extraDia+" documento pdf"))+'">'
             + '<summary class="row"><span class="rnum">'+p.n+'</span><span class="rtitle">'+esc(p.titulo)+'</span>'
             + '<span class="rtag">'+esc(p.estructura)+'</span>'+chev+'</summary>'
             + '<div class="act-body">'+detallePracticaHTML(p)+'</div></details>';
@@ -1315,7 +1299,7 @@ function buildDocsIndex(){
     if(okR) repOk++;
     if(okD) diaOk++;
     repRows += fila("p:"+p.n, p.n, p.titulo, okR);
-    diaRows += fila("p:"+p.n, p.n, p.titulo, okD);
+    if(p.n <= 33) diaRows += fila("p:"+p.n, p.n, p.titulo, okD);
   });
   host.innerHTML = '<div class="index-head"><p class="kicker">Documentos</p>'
     + '<h2>Reportes e investigaciones, dentro de la página.</h2></div>'
